@@ -1,0 +1,17 @@
+{
+  "name": "@discmjs/bot",
+  "version": "1.0.0",
+  "description": "An example bot built using the discmjs framework.",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsc && node ."
+  },
+  "author": "Dylan Neiger",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.15.3",
+    "discm.js": "workspace:^1.0.5",
+    "dotenv": "^16.0.3",
+    "typescript": "^5.0.2"
+  }
+}

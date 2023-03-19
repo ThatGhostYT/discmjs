@@ -1,0 +1,23 @@
+{
+	"name": "discm.js",
+	"version": "1.0.5",
+	"description": "A discord.js framework for making discord bots.",
+	"main": "dist/index.js",
+	"scripts": {
+		"build": "tsc",
+		"publish": "npm run build && npm publish"
+	},
+	"keywords": [
+		"discord",
+		"framework",
+		"nitro"
+	],
+	"author": "Dylan Neiger",
+	"license": "MIT",
+	"devDependencies": {
+		"@types/walk": "^2.3.1",
+		"chalk": "^4.1.2",
+		"discord.js": "^14.8.0",
+		"walk": "^2.3.15"
+	}
+}

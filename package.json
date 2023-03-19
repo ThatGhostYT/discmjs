@@ -1,0 +1,19 @@
+{
+  "name": "discm",
+  "version": "1.0.0",
+  "description": "The monorepo for every discmjs package/website.",
+  "private": true,
+  "scripts": {
+    "format": "npx prettier --write packages/",
+    "dev": "cd apps && cd web && npm run dev"
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "author": "Dylan Neiger",
+  "license": "ISC",
+  "devDependencies": {
+    "prettier": "^2.8.4"
+  }
+}
