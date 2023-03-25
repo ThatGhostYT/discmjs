@@ -1,0 +1,2 @@
+<div id="blob"></div>
+
