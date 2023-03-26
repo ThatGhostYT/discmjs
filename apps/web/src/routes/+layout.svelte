@@ -1,14 +1,27 @@
-<script>
+<script lang="ts">
     import "../app.scss";
     import { TextGradient } from "@discmjs/ui";
+
+    let shard: HTMLDivElement;
+    let hovered = false;
+    function followMouse({ clientX }: HTMLElementEventMap["mousemove"]){
+        shard.animate({
+            left: `${clientX}px`
+        },{ duration: 3000, fill: "forwards" });
+    }
 </script>
 
-<header>
+<svelte:body on:mousemove={followMouse}/>
+
+<!-- svelte-ignore a11y-mouse-events-have-key-events -->
+<header on:mouseover={() => hovered = true} on:mouseleave={() => hovered = false}>
     <p id="logo">discm<TextGradient color1="pink" color2="mediumpurple">.js</TextGradient></p>
     <nav>
+        <div id="shard" class:visible={!hovered} bind:this={shard}></div>
         <ul>
-            <li>Docs</li>
-            <li>Guide</li>
+            {#each Array.from({ length: 5 }) as _,i (i)}
+                <li>{++i}</li>
+            {/each}
         </ul>
     </nav>
 </header>
@@ -27,7 +40,8 @@
         height: 6vmax;
         align-items: center;
         justify-content: space-between;
-        border-bottom: 1px solid #333;
+        border-bottom: 1px solid #555;
+        transition: 250ms;
 
         #logo{
             padding-left: 6vmax;
@@ -42,6 +56,29 @@
                 font-size: 2em;
                 line-height: 100%;
             }
+        }
+
+        &:hover{
+            border: 10px solid;
+            border-image: linear-gradient(
+                to right,
+                pink,
+                mediumpurple
+            ) 1;
+        }
+
+        #shard.visible{
+            width: 280px;
+            height: 1px;
+            position:absolute;
+            background: linear-gradient(
+                to right,
+                transparent,
+                mediumpurple,
+                transparent
+            );
+            top: calc(6vmax - 1px);
+            translate: -50% -50%;
         }
 
         ul{

@@ -5,7 +5,8 @@
   "private": true,
   "scripts": {
     "format": "npx prettier --write packages/",
-    "dev": "cd apps && cd web && npm run dev"
+    "dev:web": "cd apps/web && npm run dev",
+    "dev": "cd apps/bot && npm run dev"
   },
   "workspaces": [
     "packages/*",

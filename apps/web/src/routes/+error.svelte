@@ -4,15 +4,11 @@
 </script>
 
 <h1 id="title">
-    <TextGradient color1="pink" color2="mediumpurple">Oops!</TextGradient>
+    <TextGradient color1="pink" color2="mediumpurple">{$page.status}</TextGradient>:
+    {$page.error?.message}
 </h1>
 
 <p>An error occurred. Please try again later.</p>
-
-<h2>
-    <TextGradient color1="pink" color2="mediumpurple">{$page.status}</TextGradient>:
-    {$page.error?.message}
-</h2>
 
 <style lang="scss">
     #title{

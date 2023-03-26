@@ -1,5 +1,5 @@
 import { DiscmClient } from "discm.js";
-import "dotenv/config";
+import { DISCORD_BOT_TOKEN as token} from "./config.json";
 
 const client = new DiscmClient({
     intents: ["Guilds"],
@@ -9,4 +9,4 @@ const client = new DiscmClient({
     }
 });
 
-client.login(process.env.DISCORD_BOT_TOKEN!);
+client.login(token);

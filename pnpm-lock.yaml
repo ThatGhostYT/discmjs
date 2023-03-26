@@ -12,12 +12,10 @@ importers:
     specifiers:
       '@types/node': ^18.15.3
       discm.js: workspace:^1.0.5
-      dotenv: ^16.0.3
       typescript: ^5.0.2
     devDependencies:
       '@types/node': 18.15.3
       discm.js: link:../../packages/discmjs
-      dotenv: 16.0.3
       typescript: 5.0.2
 
   apps/web:
@@ -588,11 +586,6 @@ packages:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
-    dev: true
-
-  /dotenv/16.0.3:
-    resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
-    engines: {node: '>=12'}
     dev: true
 
   /es6-promise/3.3.1:
