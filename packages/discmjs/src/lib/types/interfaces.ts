@@ -8,6 +8,8 @@ import {
 	Client
 } from 'discord.js';
 import { DiscmClient } from '../classes/Client';
+import { DiscmPlugin } from '../classes/DiscmPlugin';
+import { AnyCommand, Immutable } from './aliases';
 
 export interface AdditionalClientOptions {
 	/** The directories to read from. */
@@ -19,6 +21,8 @@ export interface AdditionalClientOptions {
 	};
 	/** Prefix for text commands. Defaults to `!` */
 	prefix?: string;
+	/** A list of middleware plugins for the client to use. */
+	middleware?: Omit<DiscmPlugin<'middleware'>, 'type'>[];
 }
 
 export interface Command<T extends 'slash' | 'text'> {
@@ -26,6 +30,7 @@ export interface Command<T extends 'slash' | 'text'> {
 	description: string;
 	type: T;
 	options?: T extends 'slash' ? APIApplicationCommandOption[] : never;
+	plugins?: Plugin<T>[];
 	/** Action to perform when the command is ran. */
 	run: T extends 'slash'
 		? (args: {
@@ -51,6 +56,7 @@ export interface ParsedTextCommand {
 	type: 'text';
 	name: string;
 	description?: string;
+	plugins: Plugin<'text'>[];
 	run: (
 		client: DiscmClient,
 		message: Message,
@@ -63,8 +69,27 @@ export interface ParsedSlashCommand {
 	name: string;
 	description: string;
 	data: RESTPostAPIApplicationCommandsJSONBody;
+	plugins: Plugin<'slash'>[];
 	run: (
 		client: DiscmClient,
 		interaction: ChatInputCommandInteraction
 	) => Awaitable<void>;
+}
+
+export interface Plugin<T extends 'text' | 'slash' | 'middleware'> {
+	type: T;
+	name: string;
+	run: T extends 'message'
+		? (args: {
+				command: AnyCommand;
+				client: DiscmClient;
+				message: Message;
+		  }) => 'stop' | 'continue'
+		: T extends 'slash'
+		? (args: {
+				command: AnyCommand;
+				client: DiscmClient;
+				interaction: ChatInputCommandInteraction;
+		  }) => 'stop' | 'continue'
+		: (args: { client: Immutable<DiscmClient> }) => Record<string, unknown>;
 }

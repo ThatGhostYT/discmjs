@@ -1,14 +1,15 @@
-<script>
+<script lang="ts">
     import { page } from "$app/stores";
     import { TextGradient } from "@discmjs/ui";
 </script>
 
 <h1 id="title">
-    <TextGradient color1="pink" color2="mediumpurple">{$page.status}</TextGradient>:
-    {$page.error?.message}
+    <TextGradient color1="pink" color2="mediumpurple">{$page.status}</TextGradient>: {$page.error?.message}
 </h1>
 
-<p>An error occurred. Please try again later.</p>
+<p>
+    Something went wrong, please try again later.
+</p>
 
 <style lang="scss">
     #title{

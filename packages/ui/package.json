@@ -1,11 +1,11 @@
 {
-  "name": "@discmjs/ui",
-  "version": "1.0.0",
-  "description": "UI Components for discmjs websites.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Dylan Neiger",
-  "license": "ISC"
+	"name": "@discmjs/ui",
+	"version": "1.0.0",
+	"description": "UI Components for discmjs websites.",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "Dylan Neiger",
+	"license": "ISC"
 }

@@ -1,11 +1,11 @@
-import { DiscmCommand } from "discm.js";
+import { DiscmCommand } from 'discm.js';
 
 export default new DiscmCommand({
-    type: "text",
-    description: "Replies with \"Pong!\"",
-    run: ({ message }) => {
-        message.reply({
-            content: "Pong!"
-        });
-    }
+	type: 'text',
+	description: 'Replies with "Pong!"',
+	run: ({ message }) => {
+		message.reply({
+			content: 'Pong!'
+		});
+	}
 });

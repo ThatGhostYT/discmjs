@@ -1,1 +1,1 @@
-declare module "@discmjs/ui";
+declare module '@discmjs/ui';
