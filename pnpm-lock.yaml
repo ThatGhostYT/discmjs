@@ -11,7 +11,7 @@ importers:
   apps/bot:
     specifiers:
       '@types/node': ^18.15.3
-      discm.js: workspace:^1.0.5
+      discm.js: workspace:^
       typescript: ^5.0.2
     devDependencies:
       '@types/node': 18.15.3
@@ -53,6 +53,9 @@ importers:
       chalk: 4.1.2
       discord.js: 14.8.0
       walk: 2.3.15
+
+  packages/ui:
+    specifiers: {}
 
 packages:
 
