@@ -4,26 +4,20 @@
     import { page } from "$app/stores";
 
     let shard: HTMLDivElement;
-    let nav: HTMLElement;
 
     let hovered = false;
-    let movedPercent = 80;
 
     function followMouse({ clientX }: HTMLElementEventMap["mousemove"]){
         shard.animate({
             left: `${clientX}px`
         },{ duration: 3000, fill: "forwards" });
-
-        const adjustable = 80 * (clientX / nav.offsetWidth);
-
-        movedPercent = 5 + adjustable;
     }
 </script>
 
 <svelte:body on:mousemove={followMouse}/>
 
 <!-- svelte-ignore a11y-mouse-events-have-key-events -->
-<header style="--adjust: {movedPercent}%" bind:this={nav} on:mouseover={() => hovered = true} on:mouseleave={() => hovered = false}>
+<header on:mouseover={() => hovered = true} on:mouseleave={() => hovered = false}>
     <p id="logo">discm<TextGradient color1="pink" color2="mediumpurple">.js</TextGradient></p>
     <nav>
         <div id="shard" class:visible={!hovered} bind:this={shard}></div>
@@ -82,7 +76,7 @@
                 border: 0.5vmax solid;
                 border-image: linear-gradient(
                     to right,
-                    pink clamp(5%,var(--adjust),80%),
+                    pink,
                     mediumpurple
                 ) 1;
             }

@@ -33,3 +33,27 @@ a {
 	text-decoration: none;
 	color: #e7e7e7;
 }
+
+::-webkit-scrollbar{
+	width: 2px;
+}
+
+::-webkit-scrollbar-track{
+	background: black;
+}
+
+::-webkit-scrollbar-thumb{
+	background: linear-gradient(
+		transparent,
+		mediumpurple,
+		transparent
+	);
+}
+
+::-webkit-scrollbar-thumb:hover{
+	background: linear-gradient(
+		transparent,
+		rgba($color: mediumpurple, $alpha: 0.7),
+		transparent
+	);
+}
