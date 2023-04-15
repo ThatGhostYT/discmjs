@@ -72,6 +72,8 @@
         }
 
         @media(min-width: 700px){
+            backdrop-filter: blur(0px);
+            
             &:hover{
                 border: 0.5vmax solid;
                 border-image: linear-gradient(
