@@ -8,8 +8,8 @@ export const handleCommands = (client: DiscmClient, commandsDir: string) => {
 	const walker = walk(commandsDir);
 	const subcommands: string[] = [];
 
-	walker.on('directory', (base, names, next) => {
-		subcommands.push(base);
+	walker.on('directory', (base, _, next) => {
+		if(base !== __dirname) subcommands.push(base);
 		next();
 	});
 

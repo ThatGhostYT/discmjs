@@ -6,17 +6,7 @@ const client = new DiscmClient({
 	dirs: {
 		commands: `${__dirname}/commands`,
 		events: `${__dirname}/events`
-	},
-	middleware: [
-		{
-			name: 'response',
-			run() {
-				return {
-					content: 'Hello World!'
-				};
-			}
-		}
-	]
+	}
 });
 
 client.login(token);

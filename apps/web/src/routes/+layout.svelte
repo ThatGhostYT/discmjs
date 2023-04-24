@@ -4,7 +4,6 @@
     import { page } from "$app/stores";
 
     let shard: HTMLDivElement;
-
     let hovered = false;
 
     function followMouse({ clientX }: HTMLElementEventMap["mousemove"]){
@@ -18,7 +17,7 @@
 
 <!-- svelte-ignore a11y-mouse-events-have-key-events -->
 <header on:mouseover={() => hovered = true} on:mouseleave={() => hovered = false}>
-    <p id="logo">discm<TextGradient color1="pink" color2="mediumpurple">.js</TextGradient></p>
+    <a href="/" id="logo">discm<TextGradient color1="pink" color2="mediumpurple">.js</TextGradient></a>
     <nav>
         <div id="shard" class:visible={!hovered} bind:this={shard}></div>
         <ul>
@@ -32,7 +31,7 @@
                 {/each}
             {:else}
                 {#each Array.from({ length: 5}) as _,i}
-                    <li>{++i}</li>
+                    <li><HoverTextGradient color1="pink" color2="mediumpurple">{++i}</HoverTextGradient></li>
                 {/each}
             {/if}
         </ul>
@@ -46,15 +45,45 @@
 <style lang="scss">
     header{
         display: flex;
-        backdrop-filter: blur(6px);
+        background: linear-gradient(black,transparent);
         position: fixed;
         top: 0;
         width: 100%;
         height: 6vmax;
         align-items: center;
         justify-content: space-between;
-        border-bottom: 1px solid #555;
         transition: 250ms;
+
+        @supports (backdrop-filter: none){
+            background: transparent;
+            backdrop-filter: blur(6px);
+            border-bottom: 1px solid #555;
+
+            @media(min-width: 700px){
+                &:hover{
+                    border: 0.5vmax solid;
+                    border-image: linear-gradient(
+                        to right,
+                        pink,
+                        mediumpurple
+                    ) 1;
+                }
+        
+                #shard.visible{
+                    width: 32vmax;
+                    height: 2px;
+                    position:absolute;
+                    background: linear-gradient(
+                        to right,
+                        transparent,
+                        mediumpurple,
+                        transparent
+                    );
+                    top: calc(6vmax - 1px);
+                    translate: -50% -50%;
+                }
+            }
+        }
 
         #logo{
             padding-left: 6vmax;
@@ -68,31 +97,6 @@
             @media (min-width: 1200px) {
                 font-size: 2em;
                 line-height: 100%;
-            }
-        }
-
-        @media(min-width: 700px){
-            &:hover{
-                border: 0.5vmax solid;
-                border-image: linear-gradient(
-                    to right,
-                    pink,
-                    mediumpurple
-                ) 1;
-            }
-    
-            #shard.visible{
-                width: 32vmax;
-                height: 2px;
-                position:absolute;
-                background: linear-gradient(
-                    to right,
-                    transparent,
-                    mediumpurple,
-                    transparent
-                );
-                top: calc(6vmax - 1px);
-                translate: -50% -50%;
             }
         }
 
