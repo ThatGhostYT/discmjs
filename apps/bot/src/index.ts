@@ -1,8 +1,8 @@
-import { DiscmClient } from '../../../packages/discmjs/dist/index';
+import { DiscmClient } from 'discm.js';
 import { DISCORD_BOT_TOKEN as token } from './config.json';
 
 const client = new DiscmClient({
-	intents: ['Guilds'],
+	intents: ['Guilds', 'MessageContent', 'GuildMessages'],
 	dirs: {
 		commands: `${__dirname}/commands`,
 		events: `${__dirname}/events`

@@ -12,5 +12,8 @@
 		"@types/node": "^18.15.3",
 		"discm.js": "workspace:^",
 		"typescript": "^5.0.2"
+	},
+	"dependencies": {
+		"piston-client": "^1.0.2"
 	}
 }

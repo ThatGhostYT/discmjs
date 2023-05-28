@@ -4,8 +4,6 @@ export default new DiscmCommand({
 	type: 'text',
 	description: 'Replies with "Pong!"',
 	run: ({ message }) => {
-		message.reply({
-			content: 'Pong!'
-		});
+		message.reply('Pong!');
 	}
 });

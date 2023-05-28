@@ -1,10 +1,18 @@
-import { Client, ClientOptions, Collection } from 'discord.js';
+import {
+	Client,
+	ClientOptions,
+	Collection,
+	REST,
+	Routes,
+	ApplicationCommand
+} from 'discord.js';
 import { handleCommands } from '../functions/handleCommands';
 import { handleEvents } from '../functions/handleEvents';
 import { deploy } from '../functions/deploy';
 import { AdditionalClientOptions } from '../types/interfaces';
 import { ParsedCommand, AnyEvent } from '../types/aliases';
 import { Logger } from './Logger';
+import { CommandError } from './errors/CommandError';
 
 export class DiscmClient extends Client {
 	private _commandsDir: string;
@@ -35,5 +43,26 @@ export class DiscmClient extends Client {
 		await deploy(this);
 
 		return token;
+	}
+
+	public async deleteSlashCommand(name: string) {
+		if (!this.isReady())
+			throw new CommandError(
+				'Cannot delete commands before the bot is online.'
+			);
+		const rest = new REST().setToken(this.token);
+
+		const commands = (await rest.get(
+			Routes.applicationCommands(this.user.id)
+		)) as ApplicationCommand[];
+
+		for (const command of commands) {
+			if (command.name === name) {
+				rest.delete(
+					Routes.applicationCommand(this.user.id, command.id)
+				);
+				break;
+			}
+		}
 	}
 }

@@ -8,8 +8,6 @@ import {
 	Client
 } from 'discord.js';
 import { DiscmClient } from '../classes/Client';
-import { DiscmPlugin } from '../classes/DiscmPlugin';
-import { AnyCommand, Immutable } from './aliases';
 
 export interface AdditionalClientOptions {
 	/** The directories to read from. */
@@ -21,15 +19,15 @@ export interface AdditionalClientOptions {
 	};
 	/** Prefix for text commands. Defaults to `!` */
 	prefix?: string;
-	/** A list of middleware plugins for the client to use. */
-	middleware?: Omit<DiscmPlugin<'middleware'>, 'type'>[];
 }
 
 export interface Command<T extends 'slash' | 'text'> {
 	name?: string;
 	description: string;
 	type: T;
-	options?: T extends 'slash' ? APIApplicationCommandOption[] : never;
+	options?: T extends 'slash'
+		? APIApplicationCommandOption[]
+		: CommandTextOption[];
 	plugins?: Plugin<T>[];
 	/** Action to perform when the command is ran. */
 	run: T extends 'slash'
@@ -40,8 +38,19 @@ export interface Command<T extends 'slash' | 'text'> {
 		: (args: {
 				client: DiscmClient;
 				message: Message;
-				args: string[];
+				options: CommandTextOptionValue[];
 		  }) => Awaitable<void>;
+}
+
+export interface CommandTextOption {
+	name: string;
+	description: string;
+	type: 'string' | 'number' | 'boolean';
+}
+
+export interface CommandTextOptionValue {
+	valid: boolean;
+	value: string | number | boolean;
 }
 
 export interface DiscordEvent<T extends keyof ClientEvents> {
@@ -57,10 +66,11 @@ export interface ParsedTextCommand {
 	name: string;
 	description?: string;
 	plugins: Plugin<'text'>[];
+	options: CommandTextOption[];
 	run: (
 		client: DiscmClient,
 		message: Message,
-		args: string[]
+		options: CommandTextOptionValue[]
 	) => Awaitable<void>;
 }
 
@@ -76,20 +86,18 @@ export interface ParsedSlashCommand {
 	) => Awaitable<void>;
 }
 
-export interface Plugin<T extends 'text' | 'slash' | 'middleware'> {
+export interface Plugin<T extends 'text' | 'slash'> {
 	type: T;
 	name: string;
-	run: T extends 'message'
+	run: T extends 'text'
 		? (args: {
-				command: AnyCommand;
+				command: Omit<ParsedTextCommand, 'run'>;
 				client: DiscmClient;
 				message: Message;
 		  }) => 'stop' | 'continue'
-		: T extends 'slash'
-		? (args: {
-				command: AnyCommand;
+		: (args: {
+				command: Omit<ParsedSlashCommand, 'run'>;
 				client: DiscmClient;
 				interaction: ChatInputCommandInteraction;
-		  }) => 'stop' | 'continue'
-		: (args: { client: Immutable<DiscmClient> }) => Record<string, unknown>;
+		  }) => 'stop' | 'continue';
 }

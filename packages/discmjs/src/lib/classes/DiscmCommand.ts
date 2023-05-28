@@ -1,5 +1,5 @@
 import { Awaitable, ChatInputCommandInteraction, Message } from 'discord.js';
-import { Command } from '../types/interfaces';
+import { Command, CommandTextOptionValue } from '../types/interfaces';
 import { DiscmClient } from './Client';
 
 export class DiscmCommand<T extends 'slash' | 'text'> implements Command<T> {
@@ -14,7 +14,7 @@ export class DiscmCommand<T extends 'slash' | 'text'> implements Command<T> {
 		: (args: {
 				client: DiscmClient;
 				message: Message;
-				args: string[];
+				options: CommandTextOptionValue[];
 		  }) => Awaitable<void>;
 
 	constructor(command: Command<T>) {

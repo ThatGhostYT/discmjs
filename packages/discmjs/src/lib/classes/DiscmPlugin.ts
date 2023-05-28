@@ -1,26 +1,25 @@
 import { Message, ChatInputCommandInteraction } from 'discord.js';
-import { AnyCommand, Immutable } from '../types/aliases';
-import { Plugin } from '../types/interfaces';
+import {
+	Plugin,
+	ParsedTextCommand,
+	ParsedSlashCommand
+} from '../types/interfaces';
 import { DiscmClient } from './Client';
 
-export class DiscmPlugin<T extends 'text' | 'slash' | 'middleware'>
-	implements Plugin<T>
-{
+export class DiscmPlugin<T extends 'text' | 'slash'> implements Plugin<T> {
 	public type: T;
 	public name: string;
-	public run: T extends 'message'
+	public run: T extends 'text'
 		? (args: {
-				command: AnyCommand;
+				command: Omit<ParsedTextCommand, 'run'>;
 				client: DiscmClient;
 				message: Message;
 		  }) => 'stop' | 'continue'
-		: T extends 'slash'
-		? (args: {
-				command: AnyCommand;
+		: (args: {
+				command: Omit<ParsedSlashCommand, 'run'>;
 				client: DiscmClient;
 				interaction: ChatInputCommandInteraction;
-		  }) => 'stop' | 'continue'
-		: (args: { client: Immutable<DiscmClient> }) => Record<string, unknown>;
+		  }) => 'stop' | 'continue';
 
 	constructor(plugin: Plugin<T>) {
 		this.type = plugin.type;

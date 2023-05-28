@@ -6,12 +6,6 @@ import { APIApplicationCommandOption } from 'discord.js';
 
 export const handleCommands = (client: DiscmClient, commandsDir: string) => {
 	const walker = walk(commandsDir);
-	const subcommands: string[] = [];
-
-	walker.on('directory', (base, _, next) => {
-		if(base !== __dirname) subcommands.push(base);
-		next();
-	});
 
 	walker.on('file', async (pathname, { name: filename }, next) => {
 		if (
@@ -22,6 +16,13 @@ export const handleCommands = (client: DiscmClient, commandsDir: string) => {
 		)
 			return next();
 
+		let subcommands = pathname
+			.split(commandsDir)
+			.slice(1)
+			.map((dir) => (dir.startsWith('\\') ? dir.replace('\\', '') : dir));
+
+		if (subcommands[0] === '' && subcommands.length === 1) subcommands = [];
+
 		const command = (await import(`${pathname}/${filename}`))
 			?.default as AnyCommand;
 
@@ -29,7 +30,6 @@ export const handleCommands = (client: DiscmClient, commandsDir: string) => {
 			throw new CommandError('Cannot have a subcommand be of type text.');
 
 		const name = command.name || filename.replace(/\.(js|ts)/, '');
-		client.logger.info(subcommands);
 		if (command.type === 'slash') {
 			client.commands.set(
 				subcommands.length > 0 ? subcommands[0]! : name,
@@ -63,8 +63,9 @@ export const handleCommands = (client: DiscmClient, commandsDir: string) => {
 				name,
 				description: command.description,
 				plugins: command.plugins ? command.plugins : [],
-				run: (client, message, args) =>
-					command.run({ client, message, args })
+				options: command.options ? command.options : [],
+				run: (client, message, options) =>
+					command.run({ client, message, options })
 			});
 		}
 

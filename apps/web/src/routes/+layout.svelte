@@ -45,43 +45,48 @@
 <style lang="scss">
     header{
         display: flex;
-        background: linear-gradient(black,transparent);
+        background: black;
         position: fixed;
         top: 0;
         width: 100%;
         height: 6vmax;
         align-items: center;
         justify-content: space-between;
-        transition: 250ms;
+        border-bottom: 1px solid #555;
 
         @supports (backdrop-filter: none){
             background: transparent;
             backdrop-filter: blur(6px);
-            border-bottom: 1px solid #555;
+        }
 
-            @media(min-width: 700px){
-                &:hover{
-                    border: 0.5vmax solid;
-                    border-image: linear-gradient(
-                        to right,
-                        pink,
-                        mediumpurple
-                    ) 1;
+        @media(min-width: 700px){
+            &:hover{
+                border: 1px solid;
+                border-image-source: linear-gradient(
+                    to right,
+                    pink,
+                    mediumpurple
+                );
+                border-image-slice: 1;
+                border: {
+                    top: 0;
+                    left: 0;
+                    right: 0;
                 }
-        
-                #shard.visible{
-                    width: 32vmax;
-                    height: 2px;
-                    position:absolute;
-                    background: linear-gradient(
-                        to right,
-                        transparent,
-                        mediumpurple,
-                        transparent
-                    );
-                    top: calc(6vmax - 1px);
-                    translate: -50% -50%;
-                }
+            }
+    
+            #shard.visible{
+                width: 32vmax;
+                height: 2px;
+                position:absolute;
+                background: linear-gradient(
+                    to right,
+                    transparent,
+                    mediumpurple,
+                    transparent
+                );
+                top: calc(6vmax - 1px);
+                translate: -50% -50%;
             }
         }
 

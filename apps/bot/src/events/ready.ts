@@ -1,4 +1,4 @@
-import { DiscmEvent } from '../../../../packages/discmjs/dist/index';
+import { DiscmEvent } from 'discm.js';
 
 export default new DiscmEvent({
 	name: 'ready',
