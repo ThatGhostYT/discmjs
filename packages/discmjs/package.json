@@ -1,6 +1,6 @@
 {
 	"name": "discm.js",
-	"version": "1.2.0",
+	"version": "1.2.1",
 	"description": "A discord.js framework for making discord bots.",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
