@@ -7,19 +7,27 @@
     let hovered = false;
 
     function followMouse({ clientX }: HTMLElementEventMap["mousemove"]){
-        shard.animate({
+        if(!hovered) shard.animate({
             left: `${clientX}px`
         },{ duration: 3000, fill: "forwards" });
+    }
+
+    function reset(){
+        shard.style.translate = "0";
+        shard.style.left = "0";
+        shard.animate({
+            width: "100%"
+        },{ duration: 250, fill: "forwards" });
     }
 </script>
 
 <svelte:body on:mousemove={followMouse}/>
 
 <!-- svelte-ignore a11y-mouse-events-have-key-events -->
-<header on:mouseover={() => hovered = true} on:mouseleave={() => hovered = false}>
+<header on:mouseover={() => { hovered = true; reset() }} on:mouseleave={() => { hovered = false; shard.style.translate = "-50% -50%"; shard.style.width = "32vmax"}}>
     <a href="/" id="logo">discm<TextGradient color1="pink" color2="mediumpurple">.js</TextGradient></a>
     <nav>
-        <div id="shard" class:visible={!hovered} bind:this={shard}></div>
+        <div id="shard" bind:this={shard}></div>
         <ul>
             {#if $page.route.id === "/"}
                 {#each ["about","why","benefits"] as id (id)}
@@ -60,22 +68,7 @@
         }
 
         @media(min-width: 700px){
-            &:hover{
-                border: 1px solid;
-                border-image-source: linear-gradient(
-                    to right,
-                    pink,
-                    mediumpurple
-                );
-                border-image-slice: 1;
-                border: {
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                }
-            }
-    
-            #shard.visible{
+            #shard{
                 width: 32vmax;
                 height: 2px;
                 position:absolute;
@@ -87,6 +80,15 @@
                 );
                 top: calc(6vmax - 1px);
                 translate: -50% -50%;
+            }
+
+            &:hover #shard{
+                width: 100%;
+                background: linear-gradient(
+                    to right,
+                    pink,
+                    mediumpurple
+                );
             }
         }
 
