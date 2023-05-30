@@ -1,6 +1,6 @@
 {
 	"name": "discm.js",
-	"version": "1.2.1",
+	"version": "1.2.2",
 	"description": "A discord.js framework for making discord bots.",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
@@ -19,7 +19,9 @@
 		"discord.js": "^14.11.0"
 	},
 	"devDependencies": {
-		"@types/walk": "^2.3.1",
+		"@types/walk": "^2.3.1"
+	},
+	"dependencies": {
 		"chalk": "^4.1.2",
 		"walk": "^2.3.15"
 	}
