@@ -4,6 +4,7 @@
 	"description": "A discord.js framework for making discord bots.",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
+	"homepage": "discm.js.org",
 	"scripts": {
 		"build": "tsc",
 		"publish": "npm run build && npm publish"
