@@ -16,11 +16,9 @@
 	],
 	"author": "Dylan Neiger",
 	"license": "MIT",
-	"peerDependencies": {
-		"discord.js": "^14.11.0"
-	},
 	"devDependencies": {
-		"@types/walk": "^2.3.1"
+		"@types/walk": "^2.3.1",
+		"discord.js": "^14.11.0"
 	},
 	"dependencies": {
 		"chalk": "^4.1.2",

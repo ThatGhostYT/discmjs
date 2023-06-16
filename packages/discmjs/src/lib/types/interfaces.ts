@@ -22,6 +22,7 @@ export interface AdditionalClientOptions {
 }
 
 export interface Command<T extends 'slash' | 'text'> {
+	/** @deprecated Use file names instead. */
 	name?: string;
 	description: string;
 	type: T;

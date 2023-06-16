@@ -24,6 +24,7 @@ export class DiscmCommand<T extends 'slash' | 'text'> implements Command<T> {
 		this.run = command.run;
 	}
 
+	/** @deprecated Use file names instead. */
 	public setName(name: string) {
 		this.name = name;
 		return this;

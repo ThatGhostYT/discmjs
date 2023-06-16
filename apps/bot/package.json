@@ -10,10 +10,13 @@
 	"license": "ISC",
 	"devDependencies": {
 		"@types/node": "^18.15.3",
+		"@types/node-geocoder": "^4.2.1",
 		"discm.js": "workspace:^",
 		"typescript": "^5.0.2"
 	},
 	"dependencies": {
+		"async-get-json": "^4.0.0",
+		"node-geocoder": "^4.2.0",
 		"piston-client": "^1.0.2"
 	}
 }
