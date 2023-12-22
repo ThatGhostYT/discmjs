@@ -1,11 +1,13 @@
-import { Awaitable, ChatInputCommandInteraction, Message } from 'discord.js';
-import { Command, CommandTextOptionValue } from '../types/interfaces';
+import { APIApplicationCommandOption, Awaitable, ChatInputCommandInteraction, Message } from 'discord.js';
+import { Command, CommandTextOption, CommandTextOptionValue, Plugin } from '../types/interfaces';
 import { DiscmClient } from './Client';
 
 export class DiscmCommand<T extends 'slash' | 'text'> implements Command<T> {
 	public name: string;
 	public description: string;
 	public type: T;
+	public options?: T extends 'slash' ? APIApplicationCommandOption[] : CommandTextOption[];
+	public plugins?: Plugin<T>[];
 	public run: T extends 'slash'
 		? (args: {
 				client: DiscmClient;

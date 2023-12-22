@@ -43,14 +43,14 @@ export const handleCommands = (client: DiscmClient, commandsDir: string) => {
 						description: command.description,
 						options:
 							subcommands.length > 0
-								? ([
+								? [
 										{
 											type: 1,
 											name,
 											description: command.description,
 											options: command.options || []
 										}
-								  ] as APIApplicationCommandOption[])
+								  ] as APIApplicationCommandOption[]
 								: command.options || []
 					},
 					run: (client, interaction) =>

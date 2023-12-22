@@ -11,20 +11,12 @@
             left: `${clientX}px`
         },{ duration: 3000, fill: "forwards" });
     }
-
-    function reset(){
-        shard.style.translate = "0";
-        shard.style.left = "0";
-        shard.animate({
-            width: "100%"
-        },{ duration: 250, fill: "forwards" });
-    }
 </script>
 
 <svelte:body on:mousemove={followMouse}/>
 
 <!-- svelte-ignore a11y-mouse-events-have-key-events -->
-<header on:mouseover={() => { hovered = true; reset() }} on:mouseleave={() => { hovered = false; shard.style.translate = "-50% -50%"; shard.style.width = "32vmax"}}>
+<header on:mouseover={() => hovered = true} on:mouseleave={() => hovered = false}>
     <a href="/" id="logo">discm<TextGradient color1="pink" color2="mediumpurple">.js</TextGradient></a>
     <nav>
         <div id="shard" bind:this={shard}></div>
@@ -78,17 +70,8 @@
                     mediumpurple,
                     transparent
                 );
-                top: calc(6vmax - 1px);
+                top: 6vmax;
                 translate: -50% -50%;
-            }
-
-            &:hover #shard{
-                width: 100%;
-                background: linear-gradient(
-                    to right,
-                    pink,
-                    mediumpurple
-                );
             }
         }
 
