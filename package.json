@@ -6,7 +6,6 @@
   "scripts": {
     "format": "npx prettier --write packages && npx prettier --write apps",
     "dev:web": "cd apps/web && npm run dev",
-    "dev": "cd apps/bot && npm run dev",
     "build": "cd packages/discmjs && npm run build",
     "test": "npm run build && npm run dev"
   },

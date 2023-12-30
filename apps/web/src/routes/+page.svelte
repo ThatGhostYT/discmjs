@@ -1,10 +1,6 @@
 <script lang="ts">
     import { TextGradient } from "@discmjs/ui";
-    import { setContext, onMount } from "svelte";
-
-    let mounted = false;
-    onMount(() => mounted = true);
-
+    
     const sections = [
         {
             title: "What is discm.js?",
@@ -51,8 +47,7 @@
 <ul id="sections">
     {#each sections as section, i (section.id)}
         <li id="section">
-            <!-- svelte-ignore a11y-mouse-events-have-key-events -->
-            <section on:mouseover={() => mounted && setContext("current-view",section.id)}>
+            <section>
                 <h2>
                     <TextGradient color1="pink" color2="mediumpurple">{section.title}</TextGradient>
                 </h2>
