@@ -1,6 +1,7 @@
 <script lang="ts">
     import "../app.scss";
     import { TextGradient, HoverTextGradient } from "@discmjs/ui";
+    import { page } from "$app/stores";
 
     let shard: HTMLDivElement;
 
@@ -25,13 +26,13 @@
 </script>
 
 <svelte:head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/851abbe342.js" crossorigin="anonymous"></script>
 </svelte:head>
 <svelte:body on:mousemove={followMouse}/>
 
 <!-- svelte-ignore a11y-mouse-events-have-key-events -->
 <header>
-    <a href="/" id="logo">discm<TextGradient color1="pink" color2="mediumpurple">.js</TextGradient></a>
+    <a href={$page.url.pathname} id="logo">discm<TextGradient color1="pink" color2="mediumpurple">.js</TextGradient></a>
     <nav>
         <div id="shard" bind:this={shard}></div>
         <ul
@@ -44,13 +45,24 @@
             {#each ["about","why","benefits"] as id (id)}
                 <li>
                     <a href="/#{id}">
-                        <HoverTextGradient color1="pink" color2="mediumpurple">{id.charAt(0).toUpperCase() + id.slice(1).toLowerCase()}</HoverTextGradient>
+                        {#if $page.url.href.endsWith(`#${id}`)}
+                            <TextGradient color1="pink" color2="mediumpurple">{id.charAt(0).toUpperCase() + id.slice(1).toLowerCase()}</TextGradient>
+                        {:else}
+                            <HoverTextGradient color1="pink" color2="mediumpurple">{id.charAt(0).toUpperCase() + id.slice(1).toLowerCase()}</HoverTextGradient>
+                        {/if}
                     </a>
                 </li>
             {/each}
         </ul>
-        <button id="icon" aria-expanded={mobileWidgetExpanded} aria-controls="widget" on:click={hamburgerMenu}>
-            <i class="fa fa-bars"></i>
+        <button
+            id="icon"
+            aria-expanded={mobileWidgetExpanded}
+            aria-controls="widget"
+            aria-label="Toggle mobile widget visibility"
+            on:click={hamburgerMenu}
+        >
+            <i id="open" class="fa fa-bars" />
+            <i id="close" class="fa fa-xmark" />
         </button>
     </nav>
 </header>
@@ -58,6 +70,12 @@
 <main>
     <slot/>
 </main>
+
+<footer>
+    <p>
+        <TextGradient color1="pink" color2="mediumpurple">&copy;</TextGradient> Dylan Mingua 2024
+    </p>
+</footer>
 
 <style lang="scss">
     @keyframes slideIn{
@@ -146,6 +164,24 @@
         @media(max-width: 600px){
             #icon{
                 display: block;
+
+                #open{
+                    display: inline-block;
+                }
+
+                #close{
+                    display: none;
+                }
+
+                &[aria-expanded = "true"]{
+                    #open{
+                        display: none;
+                    }
+
+                    #close{
+                        display: inline-block;
+                    }
+                }
             }
 
             #widget{
@@ -185,5 +221,11 @@
                 }
             }
         }
+    }
+
+    footer{
+        display: grid;
+        height: 24vmax;
+        width: 100%;
     }
 </style>
