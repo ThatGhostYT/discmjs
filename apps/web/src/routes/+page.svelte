@@ -51,7 +51,7 @@
                 <h2>
                     <TextGradient color1="pink" color2="mediumpurple">{section.title}</TextGradient>
                 </h2>
-                <ul id="content">
+                <ul class="content">
                     {#each section.description as item}
                         <li>{item}</li>
                     {/each}
@@ -88,7 +88,7 @@
         }
     }
 
-    #content > li:not(:last-child){
+    ul.content > li:not(:last-child){
         margin-bottom: 15px;
     }
 </style>

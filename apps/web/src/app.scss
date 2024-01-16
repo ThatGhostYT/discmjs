@@ -15,16 +15,13 @@ html {
 	margin: 0;
 	color: #e7e7e7;
 	font-family: Poppins, sans-serif;
+	height: 100%;
 }
 
 main {
-	height: calc(100vh - 6vmax);
-	margin: 6vmax auto;
+	margin: 6vmax auto auto;
 	padding: 20px;
-	margin-bottom: 0;
 	max-width: 700px;
-	display: grid;
-	place-items: center;
 
 	h1,
 	h2 {
