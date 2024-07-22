@@ -6,16 +6,17 @@
 	-webkit-font-smoothing: antialiased;
 }
 
-body,
-html {
-	scroll-behavior: smooth;
+body {
 	background: fixed 0 0 /20px 20px radial-gradient(#313131 1px, transparent 0),
 		fixed 10px 10px /20px 20px radial-gradient(#313131 1px, transparent 0),
 		linear-gradient(to bottom, transparent 0, black 300px), black;
 	margin: 0;
 	color: #e7e7e7;
 	font-family: Poppins, sans-serif;
-	height: 100%;
+
+	& > div {
+		position: relative;
+	}
 }
 
 main {

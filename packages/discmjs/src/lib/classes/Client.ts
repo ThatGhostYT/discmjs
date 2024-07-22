@@ -13,6 +13,7 @@ import { AdditionalClientOptions } from '../types/interfaces';
 import { ParsedCommand, AnyEvent } from '../types/aliases';
 import { Logger } from './Logger';
 import { CommandError } from './errors/CommandError';
+import { DeployError } from './errors/DeployError';
 
 export class DiscmClient extends Client {
 	private _commandsDir: string;
@@ -21,6 +22,7 @@ export class DiscmClient extends Client {
 	public events: Collection<string, AnyEvent>;
 	public logger: Logger;
 	public prefix: string;
+	public global: boolean;
 
 	constructor(options: ClientOptions & AdditionalClientOptions) {
 		super(options);
@@ -28,6 +30,7 @@ export class DiscmClient extends Client {
 		this._commandsDir = options.dirs.commands;
 		this._eventsDir = options.dirs.events;
 		this.prefix = options.prefix || '!';
+		this.global = options.global || true;
 
 		this.commands = new Collection();
 		this.events = new Collection();
@@ -38,9 +41,14 @@ export class DiscmClient extends Client {
 		handleEvents(this, this._eventsDir);
 	}
 
-	public override async login(token: string) {
+	public override async login(token: string, guildId?: string | string[]) {
+		if (guildId === undefined && this.global)
+			throw new DeployError(
+				'Cannot privately deploy with no provided guild ids.'
+			);
+
 		await super.login(token);
-		await deploy(this);
+		await deploy(this, guildId);
 
 		return token;
 	}
@@ -58,7 +66,7 @@ export class DiscmClient extends Client {
 
 		for (const command of commands) {
 			if (command.name === name) {
-				rest.delete(
+				await rest.delete(
 					Routes.applicationCommand(this.user.id, command.id)
 				);
 				break;

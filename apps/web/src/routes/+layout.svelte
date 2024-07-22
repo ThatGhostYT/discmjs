@@ -224,7 +224,9 @@
     }
 
     footer{
-        height: 24vmax;
+        position: relative;
+        bottom: 0;
+        height: 12vmax;
         width: 100%;
         background: black;
         border-top: 1px solid #555;

@@ -19,6 +19,11 @@ export interface AdditionalClientOptions {
 	};
 	/** Prefix for text commands. Defaults to `!` */
 	prefix?: string;
+	/**
+	 * Whether to deploy the slash commands globally or to a specific guild.
+	 * If false, a guild id or an array of guild ids will have to be provided to the login function.
+	 */
+	global?: boolean;
 }
 
 export interface Command<T extends 'slash' | 'text'> {

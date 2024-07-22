@@ -8,7 +8,10 @@ import { DiscmClient } from '../classes/Client';
 import { ParsedSlashCommand } from '../types/interfaces';
 import { DeployError } from '../classes/errors/DeployError';
 
-export const deploy = async (client: DiscmClient) => {
+export const deploy = async (
+	client: DiscmClient,
+	guildId?: string | string[]
+) => {
 	const slashOnly = client.commands.filter(
 		(c) => c.type === 'slash'
 	) as Collection<string, ParsedSlashCommand>;
@@ -29,11 +32,41 @@ export const deploy = async (client: DiscmClient) => {
 	}
 
 	try {
-		await new REST({ version: '10' })
-			.setToken(client.token!)
-			.put(Routes.applicationCommands(client.application?.id!), {
-				body: commandRawData
-			});
+		if (client.global) {
+			await new REST()
+				.setToken(client.token!)
+				.put(Routes.applicationCommands(client.application?.id!), {
+					body: commandRawData
+				});
+		} else {
+			client.logger.custom(["Deploying commands privately!"],"deploy","blue");
+			if (Array.isArray(guildId)) {
+				for (const id of guildId) {
+					await new REST()
+						.setToken(client.token!)
+						.put(
+							Routes.applicationGuildCommands(
+								client.application?.id!,
+								id
+							),
+							{
+								body: commandRawData
+							}
+						);
+				}
+			} else
+				await new REST()
+					.setToken(client.token!)
+					.put(
+						Routes.applicationGuildCommands(
+							client.application?.id!,
+							guildId!
+						),
+						{
+							body: commandRawData
+						}
+					);
+		}
 	} catch (err) {
 		throw new DeployError(err);
 	}

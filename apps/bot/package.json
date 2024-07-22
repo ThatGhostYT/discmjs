@@ -1,0 +1,20 @@
+{
+	"name": "discmjs-example-bot",
+	"version": "1.0.0",
+	"description": "An example bot written by the creator of discmjs.",
+	"main": "dist/index.js",
+	"scripts": {
+		"dev": "tsc && node dist/index.js",
+		"build": "tsc"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"discm.js": "workspace:^",
+		"discord.js": "^14.11.0"
+	},
+	"devDependencies": {
+		"@types/node": "^20.14.10",
+		"typescript": "^4.9.3"
+	}
+}
