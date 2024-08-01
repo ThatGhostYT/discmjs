@@ -1,0 +1,14 @@
+{
+	"main": "dist/index.js",
+	"scripts": {
+		"build": "tsc",
+		"start": "tsc && node dist/index.js"
+	},
+	"devDependencies": {
+		"typescript": "^5.5.4"
+	},
+	"dependencies": {
+		"discm.js": "latest",
+		"discord.js": "^14.15.3"
+	}
+}

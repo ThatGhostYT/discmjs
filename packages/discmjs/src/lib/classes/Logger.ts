@@ -53,4 +53,15 @@ export class Logger {
 	public error(...data: any[]) {
 		this.custom(data, 'error', 'red');
 	}
+
+	public message(message: string) {
+		console.log(
+			chalk.white.bold(
+				message.replace(
+					/\{(cyan|green|yellow|red):([^}]+)\}/gi,
+					(_, color, content) => chalk[color].bold(content)
+				)
+			)
+		);
+	}
 }

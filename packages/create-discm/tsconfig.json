@@ -1,7 +1,8 @@
 {
-	"exclude": ["dist", "node_modules"],
+	"exclude": ["dist", "node_modules", "templates"],
+	"include": ["src"],
 	"compilerOptions": {
-		"module": "CommonJS",
+		"module": "ESNext",
 		"target": "ESNext",
 		"skipLibCheck": true,
 		"moduleResolution": "node",
@@ -10,7 +11,7 @@
 		"sourceMap": true,
 		/* Paths */
 		"outDir": "./dist",
-		"rootDir": "./",
+		"rootDir": "./src",
 		/* The "No" Corner */
 		"noImplicitAny": false,
 		"noImplicitOverride": true,

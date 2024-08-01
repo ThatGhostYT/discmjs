@@ -2,10 +2,10 @@ import { DiscmCommand } from 'discm.js';
 
 export default new DiscmCommand({
 	type: 'slash',
-	description: 'Says "Hello World!"',
-	run: ({ interaction }) => {
+	description: 'Replies with "Pong!"',
+	run({ interaction }) {
 		interaction.reply({
-			content: 'Hello World!',
+			content: 'Pong!',
 			ephemeral: true
 		});
 	}

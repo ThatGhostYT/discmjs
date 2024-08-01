@@ -39,7 +39,11 @@ export const deploy = async (
 					body: commandRawData
 				});
 		} else {
-			client.logger.custom(["Deploying commands privately!"],"deploy","blue");
+			client.logger.custom(
+				['Deploying commands privately!'],
+				'deploy',
+				'blue'
+			);
 			if (Array.isArray(guildId)) {
 				for (const id of guildId) {
 					await new REST()

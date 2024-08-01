@@ -1,0 +1,11 @@
+{
+	"main": "index.js",
+	"scripts": {
+		"start": "node index.js"
+	},
+	"license": "ISC",
+	"dependencies": {
+		"discm.js": "latest",
+		"discord.js": "^14.15.3"
+	}
+}
