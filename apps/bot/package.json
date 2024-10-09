@@ -4,7 +4,7 @@
 	"description": "An example bot written by the creator of discmjs.",
 	"main": "dist/index.js",
 	"scripts": {
-		"dev": "tsc && node dist/index.js",
+		"test": "tsc && node dist/index.js",
 		"build": "tsc"
 	},
 	"author": "",

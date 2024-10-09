@@ -40,7 +40,7 @@ export const deploy = async (
 				});
 		} else {
 			client.logger.custom(
-				['Deploying commands privately!'],
+				[`Deploying commands privately!`],
 				'deploy',
 				'blue'
 			);

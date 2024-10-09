@@ -12,5 +12,4 @@ export * from './lib/types/aliases';
 export * from './lib/types/interfaces';
 
 // Discord.JS
-
 export { ApplicationCommandOptionType as CommandOptionType } from 'discord.js';

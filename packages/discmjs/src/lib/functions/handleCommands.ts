@@ -3,6 +3,7 @@ import { AnyCommand } from '../types/aliases';
 import { CommandError } from '../classes/errors/CommandError';
 import { walk } from 'walk';
 import { APIApplicationCommandOption } from 'discord.js';
+import { generateHelp } from './generateHelp';
 
 export const handleCommands = (client: DiscmClient, commandsDir: string) => {
 	const walker = walk(commandsDir);
@@ -48,10 +49,14 @@ export const handleCommands = (client: DiscmClient, commandsDir: string) => {
 											type: 1,
 											name,
 											description: command.description,
-											options: command.options || []
+											options: command.options
+												? command.options
+												: []
 										}
 								  ] as APIApplicationCommandOption[])
-								: command.options || []
+								: command.options
+								? command.options
+								: []
 					},
 					run: (client, interaction) =>
 						command.run({ client, interaction })
@@ -74,5 +79,9 @@ export const handleCommands = (client: DiscmClient, commandsDir: string) => {
 
 	walker.on('end', () => {
 		client.logger.success('Successfully compiled all commands!');
+
+		if (client.autoGenerateHelp) {
+			generateHelp(client);
+		}
 	});
 };

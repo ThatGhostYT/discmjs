@@ -36,6 +36,7 @@ export class DiscmCommand<T extends 'slash' | 'text'> implements Command<T> {
 		this.description = command.description;
 		this.type = command.type;
 		this.run = command.run;
+		this.options = command.options as [];
 	}
 
 	/** @deprecated Use file names instead. */

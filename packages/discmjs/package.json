@@ -7,7 +7,8 @@
 	"homepage": "discm.js.org",
 	"scripts": {
 		"build": "tsc",
-		"publish": "npm run build && npm publish"
+		"publish": "npm run build && npm publish",
+		"watch": "tsc --watch"
 	},
 	"keywords": [
 		"discord",
