@@ -27,6 +27,6 @@
 		"@types/yargs": "^17.0.32",
 		"typescript": "^4.9.3"
 	},
-	"main": "index.js",
+	"main": "dist/bin.js",
 	"keywords": []
 }

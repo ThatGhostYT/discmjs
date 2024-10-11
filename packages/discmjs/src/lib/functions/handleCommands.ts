@@ -58,14 +58,10 @@ export const handleCommands = (client: DiscmClient, commandsDir: string) => {
 											type: 1,
 											name,
 											description: command.description,
-											options: command.options
-												? command.options
-												: []
+											options: command.options || []
 										}
 								  ] as APIApplicationCommandOption[])
-								: command.options
-								? command.options
-								: []
+								: command.options || []
 					},
 					run: (client, interaction) =>
 						command.run({ client, interaction })

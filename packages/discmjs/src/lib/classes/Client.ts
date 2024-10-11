@@ -77,13 +77,9 @@ export class DiscmClient extends Client {
 		this._commandsDir = options.dirs.commands;
 		this._eventsDir = options.dirs.events;
 		this.prefix = options.prefix || '!';
-		this.global = options.global !== undefined ? options.global : true;
-		this.delayedDeploy =
-			options.delayDeploy !== undefined ? options.delayDeploy : false;
-		this.autoGenerateHelp =
-			options.autoGenerateHelpCommand !== undefined
-				? options.autoGenerateHelpCommand
-				: false;
+		this.global = options.global ?? true;
+		this.delayedDeploy = options.delayDeploy ?? false;
+		this.autoGenerateHelp = options.autoGenerateHelpCommand ?? false;
 
 		this.commands = new Collection();
 		this.events = new Collection();

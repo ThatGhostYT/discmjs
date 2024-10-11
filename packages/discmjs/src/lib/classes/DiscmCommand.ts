@@ -70,7 +70,6 @@ export class DiscmCommand<T extends 'slash' | 'text'> implements Command<T> {
 		this.run = command.run;
 		this.options = command.options as [];
 		this.plugins = command.plugins || [];
-		this.delayedDeploy =
-			command.delayDeploy !== undefined ? command.delayDeploy : false;
+		this.delayedDeploy = command.delayDeploy ?? false;
 	}
 }
