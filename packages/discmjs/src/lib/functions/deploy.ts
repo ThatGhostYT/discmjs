@@ -8,6 +8,11 @@ import { DiscmClient } from '../classes/Client';
 import { ParsedSlashCommand } from '../types/interfaces';
 import { DeployError } from '../classes/errors/DeployError';
 
+/**
+ * Deploys all slash commands.
+ * @param client The client deploying the slash commands.
+ * @param guildId A guild id or a list of guild ids to privately deploy to. Only required if the client is not global.
+ */
 export const deploy = async (
 	client: DiscmClient,
 	guildId?: string | string[]

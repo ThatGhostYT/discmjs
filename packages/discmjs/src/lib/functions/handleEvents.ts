@@ -3,6 +3,11 @@ import { DiscmClient } from '../classes/Client';
 import { AnyEvent } from '../types/aliases';
 import { CommandTextOptionValue } from '../types/interfaces';
 
+/**
+ * Listens for all client events.
+ * @param client The client with the events.
+ * @param eventsDir The directory where all client events are located.
+ */
 export const handleEvents = async (client: DiscmClient, eventsDir: string) => {
 	for (const file of readdirSync(eventsDir).filter(
 		(f) => f.endsWith('.js') || (f.endsWith('.ts') && !f.endsWith('.d.ts'))

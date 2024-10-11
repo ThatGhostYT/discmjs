@@ -12,15 +12,46 @@ import {
 } from '../types/interfaces';
 import { DiscmClient } from './Client';
 
+/**
+ * A discm command.
+ * Can be either text or slash (/).
+ */
 export class DiscmCommand<T extends 'slash' | 'text'> implements Command<T> {
+	/**
+	 * The name of the command.
+	 */
 	public name: string;
+
+	/**
+	 * The description of the command.
+	 */
 	public description: string;
+
+	/**
+	 * Whether the command is text or slash (/).
+	 */
 	public type: T;
+
+	/**
+	 * The options the command accepts.
+	 */
 	public options?: T extends 'slash'
 		? APIApplicationCommandOption[]
 		: CommandTextOption[];
+
+	/**
+	 * Plugins the command uses.
+	 */
 	public plugins?: Plugin<T>[];
+
+	/**
+	 * Whether to delay the deployment of this command.
+	 */
 	public delayedDeploy?: boolean;
+
+	/**
+	 * The code to execute once the command is called.
+	 */
 	public run: T extends 'slash'
 		? (args: {
 				client: DiscmClient;
@@ -38,18 +69,8 @@ export class DiscmCommand<T extends 'slash' | 'text'> implements Command<T> {
 		this.type = command.type;
 		this.run = command.run;
 		this.options = command.options as [];
+		this.plugins = command.plugins || [];
 		this.delayedDeploy =
 			command.delayDeploy !== undefined ? command.delayDeploy : false;
-	}
-
-	/** @deprecated Use file names instead. */
-	public setName(name: string) {
-		this.name = name;
-		return this;
-	}
-
-	public setDescription(description: string) {
-		this.description = description;
-		return this;
 	}
 }

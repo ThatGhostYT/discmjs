@@ -1,7 +1,16 @@
 import chalk from 'chalk';
 import { format } from 'util';
 
+/**
+ * The logger exposed by the discm client.
+ */
 export class Logger {
+	/**
+	 * Allows for custom headers.
+	 * @param data The data to log.
+	 * @param header The header to use for the log message.
+	 * @param color The color to print the log message in.
+	 */
 	public custom(
 		data: any[],
 		header: string,
@@ -38,22 +47,42 @@ export class Logger {
 		console.log(`${date} ${title} ${body}`);
 	}
 
+	/**
+	 * Prints blue text with info header.
+	 * @param data The data to log.
+	 */
 	public info(...data: any[]) {
 		this.custom(data, 'info', 'blue');
 	}
 
+	/**
+	 * Prints green text with success header.
+	 * @param data The data to log.
+	 */
 	public success(...data: any[]) {
 		this.custom(data, 'success', 'green');
 	}
 
+	/**
+	 * Prints yellow text with warn header.
+	 * @param data The data to log.
+	 */
 	public warn(...data: any[]) {
 		this.custom(data, 'warn', 'yellow');
 	}
 
+	/**
+	 * Prints red text with error header.
+	 * @param data The data to log.
+	 */
 	public error(...data: any[]) {
 		this.custom(data, 'error', 'red');
 	}
 
+	/**
+	 * Prints a custom message that can be change colors within the message base on syntax.
+	 * @param message The message to print.
+	 */
 	public message(message: string) {
 		console.log(
 			chalk.white.bold(

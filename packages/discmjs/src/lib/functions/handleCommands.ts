@@ -5,6 +5,11 @@ import { walk } from 'walk';
 import { APIApplicationCommandOption } from 'discord.js';
 import { generateHelp } from './generateHelp';
 
+/**
+ * Parses all commands and gets them ready for deployment.
+ * @param client The client parsing the commands.
+ * @param commandsDir The directory where all commands are located.
+ */
 export const handleCommands = (client: DiscmClient, commandsDir: string) => {
 	const walker = walk(commandsDir);
 
