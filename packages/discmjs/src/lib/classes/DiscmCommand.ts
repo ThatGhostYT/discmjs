@@ -20,6 +20,7 @@ export class DiscmCommand<T extends 'slash' | 'text'> implements Command<T> {
 		? APIApplicationCommandOption[]
 		: CommandTextOption[];
 	public plugins?: Plugin<T>[];
+	public delayedDeploy?: boolean;
 	public run: T extends 'slash'
 		? (args: {
 				client: DiscmClient;
@@ -37,6 +38,8 @@ export class DiscmCommand<T extends 'slash' | 'text'> implements Command<T> {
 		this.type = command.type;
 		this.run = command.run;
 		this.options = command.options as [];
+		this.delayedDeploy =
+			command.delayDeploy !== undefined ? command.delayDeploy : false;
 	}
 
 	/** @deprecated Use file names instead. */

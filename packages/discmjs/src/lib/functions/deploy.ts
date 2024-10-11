@@ -18,6 +18,7 @@ export const deploy = async (
 
 	const commandRawData: CommandData[] = [];
 	for (const [, command] of slashOnly) {
+		if (command.delayedDeploy) continue;
 		const subcommands = command.data.options?.filter(
 			(option) => option.type === 1
 		);
@@ -32,12 +33,14 @@ export const deploy = async (
 	}
 
 	try {
+		const rest = new REST().setToken(client.token!);
 		if (client.global) {
-			await new REST()
-				.setToken(client.token!)
-				.put(Routes.applicationCommands(client.application?.id!), {
+			await rest.put(
+				Routes.applicationCommands(client.application?.id!),
+				{
 					body: commandRawData
-				});
+				}
+			);
 		} else {
 			client.logger.custom(
 				[`Deploying commands privately!`],
@@ -46,30 +49,26 @@ export const deploy = async (
 			);
 			if (Array.isArray(guildId)) {
 				for (const id of guildId) {
-					await new REST()
-						.setToken(client.token!)
-						.put(
-							Routes.applicationGuildCommands(
-								client.application?.id!,
-								id
-							),
-							{
-								body: commandRawData
-							}
-						);
-				}
-			} else
-				await new REST()
-					.setToken(client.token!)
-					.put(
+					await rest.put(
 						Routes.applicationGuildCommands(
 							client.application?.id!,
-							guildId!
+							id
 						),
 						{
 							body: commandRawData
 						}
 					);
+				}
+			} else
+				await rest.put(
+					Routes.applicationGuildCommands(
+						client.application?.id!,
+						guildId!
+					),
+					{
+						body: commandRawData
+					}
+				);
 		}
 	} catch (err) {
 		throw new DeployError(err);

@@ -45,6 +45,7 @@ export interface Command<T extends 'slash' | 'text'> {
 		? APIApplicationCommandOption[]
 		: CommandTextOption[];
 	plugins?: Plugin<T>[];
+	delayDeploy?: boolean;
 	/** Action to perform when the command is ran. */
 	run: T extends 'slash'
 		? (args: {
@@ -96,6 +97,7 @@ export interface ParsedSlashCommand {
 	description: string;
 	data: RESTPostAPIApplicationCommandsJSONBody;
 	plugins: Plugin<'slash'>[];
+	delayedDeploy: boolean;
 	run: (
 		client: DiscmClient,
 		interaction: ChatInputCommandInteraction

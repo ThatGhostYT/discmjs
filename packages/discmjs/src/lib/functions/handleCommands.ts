@@ -39,6 +39,10 @@ export const handleCommands = (client: DiscmClient, commandsDir: string) => {
 					name,
 					description: command.description,
 					plugins: command.plugins ? command.plugins : [],
+					delayedDeploy:
+						command.delayDeploy !== undefined
+							? command.delayDeploy
+							: false,
 					data: {
 						name: subcommands.length > 0 ? subcommands[0]! : name,
 						description: command.description,
