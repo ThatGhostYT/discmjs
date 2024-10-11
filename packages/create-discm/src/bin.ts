@@ -1,4 +1,4 @@
-#! usr/bin/env node
+#!/usr/bin/env node
 
 import ora from 'ora';
 import yargs from 'yargs';

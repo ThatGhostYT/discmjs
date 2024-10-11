@@ -1,6 +1,6 @@
 {
 	"name": "create-discm",
-	"version": "1.0.1",
+	"version": "1.0.3",
 	"description": "A cli to create a template for discm.js",
 	"type": "module",
 	"scripts": {
