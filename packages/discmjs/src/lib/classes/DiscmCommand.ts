@@ -4,12 +4,8 @@ import {
 	ChatInputCommandInteraction,
 	Message
 } from 'discord.js';
-import {
-	Command,
-	CommandTextOption,
-	CommandTextOptionValue,
-	Plugin
-} from '../types/interfaces';
+import { Command, CommandTextOptionResults, Plugin } from '../types/interfaces';
+import { AnyCommandTextOption } from '../types/aliases';
 import { DiscmClient } from './Client';
 
 /**
@@ -37,7 +33,7 @@ export class DiscmCommand<T extends 'slash' | 'text'> implements Command<T> {
 	 */
 	public options?: T extends 'slash'
 		? APIApplicationCommandOption[]
-		: CommandTextOption[];
+		: AnyCommandTextOption[];
 
 	/**
 	 * Plugins the command uses.
@@ -60,7 +56,7 @@ export class DiscmCommand<T extends 'slash' | 'text'> implements Command<T> {
 		: (args: {
 				client: DiscmClient;
 				message: Message;
-				options: CommandTextOptionValue[];
+				options: CommandTextOptionResults;
 		  }) => Awaitable<void>;
 
 	constructor(command: Command<T>) {

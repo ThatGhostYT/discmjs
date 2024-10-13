@@ -1,7 +1,7 @@
 import { readdirSync } from 'node:fs';
 import { DiscmClient } from '../classes/Client';
 import { AnyEvent } from '../types/aliases';
-import { CommandTextOptionValue } from '../types/interfaces';
+import { CommandTextOptionResults } from '../types/interfaces';
 
 /**
  * Listens for all client events.
@@ -40,7 +40,7 @@ export const handleEvents = async (client: DiscmClient, eventsDir: string) => {
 	});
 
 	client.on('messageCreate', (message) => {
-		const prefix = message.content.substring(0, 1);
+		const prefix = message.content.substring(0, client.prefix.length);
 
 		if (prefix !== client.prefix) return;
 		if (!message.inGuild()) return;
@@ -51,23 +51,35 @@ export const handleEvents = async (client: DiscmClient, eventsDir: string) => {
 		const command = client.commands.get(name);
 
 		if (command && command.type === 'text') {
-			let options: CommandTextOptionValue[] = [];
+			let options: CommandTextOptionResults = {};
 
 			for (let i = 0; i < args.length; i++) {
-				const option = command.options[i];
+				const option = command.options[i]!;
 				let type = '';
 
 				if (!/\d/.test(args[i]!) && !/(true)|(false)/i.test(args[i]!))
 					type = 'string';
-				else type = typeof eval(args[i]!);
+				else type = typeof eval(args[i]!.toLowerCase());
 
-				if (type === option?.type)
-					options.push({
+				if (type !== option.type)
+					options[option.name] = {
+						name: option.name,
 						valid: false,
-						value: ''
-					});
-				else
-					options.push({
+						value: args[i]!
+					};
+				else if (
+					option.type === 'string' &&
+					option.choices &&
+					!option.choices.includes(args[i]!)
+				) {
+					options[option.name] = {
+						name: option.name,
+						valid: false,
+						value: args[i]!
+					};
+				} else
+					options[option.name] = {
+						name: option.name,
 						valid: true,
 						value:
 							type === 'number'
@@ -75,11 +87,16 @@ export const handleEvents = async (client: DiscmClient, eventsDir: string) => {
 								: type === 'boolean'
 								? Boolean(args[i]!)
 								: args[i]!
-					});
+					};
 			}
 
 			for (const plugin of command.plugins) {
-				const result = plugin.run({ command, client, message });
+				const result = plugin.run({
+					command,
+					client,
+					message,
+					options
+				});
 
 				if (result === 'stop') return;
 			}

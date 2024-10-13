@@ -14,7 +14,7 @@ export class Logger {
 	public custom(
 		data: any[],
 		header: string,
-		color: 'blue' | 'green' | 'yellow' | 'red'
+		color: 'blue' | 'green' | 'yellow' | 'red' | 'purple'
 	) {
 		const colors = {
 			blue: {
@@ -32,6 +32,10 @@ export class Logger {
 			red: {
 				bg: chalk.bgRedBright.bold,
 				normal: chalk.red
+			},
+			purple: {
+				bg: chalk.bgMagentaBright.bold,
+				normal: chalk.magenta
 			}
 		};
 
@@ -77,6 +81,14 @@ export class Logger {
 	 */
 	public error(...data: any[]) {
 		this.custom(data, 'error', 'red');
+	}
+
+	/**
+	 * Prints red text with debug header.
+	 * @param data The data to log.
+	 */
+	public debug(...data: any[]) {
+		this.custom(data, 'debug', 'purple');
 	}
 
 	/**

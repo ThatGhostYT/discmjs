@@ -8,6 +8,7 @@ import {
 	Client,
 	ColorResolvable
 } from 'discord.js';
+import { AnyCommandTextOption } from './aliases';
 import { DiscmClient } from '../classes/Client';
 
 /**
@@ -83,7 +84,7 @@ export interface Command<T extends 'slash' | 'text'> {
 	 */
 	options?: T extends 'slash'
 		? APIApplicationCommandOption[]
-		: CommandTextOption[];
+		: AnyCommandTextOption[];
 
 	/**
 	 * The plugins the command uses.
@@ -108,14 +109,14 @@ export interface Command<T extends 'slash' | 'text'> {
 		: (args: {
 				client: DiscmClient;
 				message: Message;
-				options: CommandTextOptionValue[];
+				options: CommandTextOptionResults;
 		  }) => Awaitable<void>;
 }
 
 /**
  * An option for a text command.
  */
-export interface CommandTextOption {
+export interface CommandTextOption<T extends 'string' | 'number' | 'boolean'> {
 	/**
 	 * The name of the option.
 	 */
@@ -129,22 +130,35 @@ export interface CommandTextOption {
 	/**
 	 * The type the user should use.
 	 */
-	type: 'string' | 'number' | 'boolean';
+	type: T;
+
+	/**
+	 * If this is a string or number option, the only valid options the user can type.
+	 * If the user types something that is not in this list, than it will return as not valid.
+	 */
+	choices?: T extends 'string' ? string[] : never;
 }
 
 /**
  * The results of the evaluation of the given option.
  */
-export interface CommandTextOptionValue {
-	/**
-	 * Whether the given option is valid or not.
-	 */
-	valid: boolean;
+export interface CommandTextOptionResults {
+	[key: string]: {
+		/**
+		 * The name of the option.
+		 */
+		name: string;
 
-	/**
-	 * The value of the given option.
-	 */
-	value: string | number | boolean;
+		/**
+		 * Whether the given option is valid or not.
+		 */
+		valid: boolean;
+
+		/**
+		 * The value of the given option.
+		 */
+		value: string | number | boolean;
+	};
 }
 
 /**
@@ -196,7 +210,7 @@ export interface ParsedTextCommand {
 	/**
 	 * A list of options the command uses.
 	 */
-	options: CommandTextOption[];
+	options: AnyCommandTextOption[];
 
 	/**
 	 * The callback of this command.
@@ -207,7 +221,7 @@ export interface ParsedTextCommand {
 	run: (
 		client: DiscmClient,
 		message: Message,
-		options: CommandTextOptionValue[]
+		options: CommandTextOptionResults
 	) => Awaitable<void>;
 }
 
@@ -278,6 +292,7 @@ export interface Plugin<T extends 'slash' | 'text'> {
 				command: Omit<ParsedTextCommand, 'run'>;
 				client: DiscmClient;
 				message: Message;
+				options: CommandTextOptionResults;
 		  }) => 'stop' | 'continue'
 		: (args: {
 				command: Omit<ParsedSlashCommand, 'run'>;

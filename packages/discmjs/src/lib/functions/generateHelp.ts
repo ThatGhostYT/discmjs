@@ -108,17 +108,29 @@ export function generateHelp(client: DiscmClient) {
 					} else {
 						embed.setDescription(
 							command.description! +
-								`This command is a **text** command. It has **${
+								` This command is a **text** command. It has **${
 									command.options.length
 								}** option${
 									command.options.length === 1 ? '' : 's'
-								}.`
+								}. The prefix for text commands is \`${
+									client.prefix
+								}\`.`
 						);
 
 						for (const option of command.options) {
 							embed.addFields({
 								name: option.name,
-								value: `${option.description} It accepts **${option.type}** values.`
+								value: `${option.description} It accepts **${
+									option.type
+								}** values.${
+									option.choices
+										? ' Only the following values: ' +
+										  option.choices
+												.map((c) => `\`${c}\``)
+												.join(', ')
+										: ''
+								}.`,
+								inline: true
 							});
 						}
 					}

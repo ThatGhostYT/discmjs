@@ -5,5 +5,7 @@ export default new DiscmEvent({
 	once: true,
 	run(client) {
 		client.logger.success(`Successfully logged in as ${client.user?.tag}`);
+
+		client.deleteSlashCommand('embed');
 	}
 });
