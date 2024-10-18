@@ -4,7 +4,8 @@ import {
 	DiscordEvent,
 	ParsedSlashCommand,
 	ParsedTextCommand,
-	CommandTextOption
+	CommandTextOption,
+	ParsedOverloadCommand
 } from './interfaces';
 
 /**
@@ -24,4 +25,7 @@ export type AnyCommandTextOption = CommandTextOption<
 /**
  * An aliase type for a parsed command that can be either slash (/) or text.
  */
-export type ParsedCommand = ParsedSlashCommand | ParsedTextCommand;
+export type ParsedCommand =
+	| ParsedSlashCommand
+	| ParsedTextCommand
+	| ParsedOverloadCommand;

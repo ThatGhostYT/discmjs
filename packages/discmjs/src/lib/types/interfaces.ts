@@ -113,6 +113,18 @@ export interface Command<T extends 'slash' | 'text'> {
 		  }) => Awaitable<void>;
 }
 
+export interface CommandTextOptionChoice {
+	/**
+	 * The name of this option.
+	 */
+	name: string;
+
+	/**
+	 * The value to provide if this option is selected.
+	 */
+	value: string;
+}
+
 /**
  * An option for a text command.
  */
@@ -136,29 +148,34 @@ export interface CommandTextOption<T extends 'string' | 'number' | 'boolean'> {
 	 * If this is a string or number option, the only valid options the user can type.
 	 * If the user types something that is not in this list, than it will return as not valid.
 	 */
-	choices?: T extends 'string' ? string[] : never;
+	choices?: T extends 'string' ? CommandTextOptionChoice[] : never;
 }
 
 /**
  * The results of the evaluation of the given option.
+ * Mimics {@link ChatInputCommandInteraction.options interaction.options}
  */
 export interface CommandTextOptionResults {
-	[key: string]: {
-		/**
-		 * The name of the option.
-		 */
-		name: string;
+	/**
+	 * Gets a string option.
+	 * @param name The name of the option.
+	 * @returns "" if the option is invalid.
+	 */
+	getString(name: string): string;
 
-		/**
-		 * Whether the given option is valid or not.
-		 */
-		valid: boolean;
+	/**
+	 * Gets a number option
+	 * @param name The name of the option.
+	 * @returns NaN if the option is invalid.
+	 */
+	getNumber(name: string): number;
 
-		/**
-		 * The value of the given option.
-		 */
-		value: string | number | boolean;
-	};
+	/**
+	 * Gets a boolean option.
+	 * @param name The name of the option.
+	 * @returns "" if the option is invalid.
+	 */
+	getBoolean(name: string): boolean | '';
 }
 
 /**
@@ -255,7 +272,7 @@ export interface ParsedSlashCommand {
 	plugins: Plugin<'slash'>[];
 
 	/**
-	 * Whether this command is getting deployed late or not.
+	 * Whether to delay the deployment of this command.
 	 */
 	delayedDeploy: boolean;
 
@@ -267,6 +284,68 @@ export interface ParsedSlashCommand {
 	run: (
 		client: DiscmClient,
 		interaction: ChatInputCommandInteraction
+	) => Awaitable<void>;
+}
+
+/**
+ * A parsed overload command (slash and text).
+ */
+export interface ParsedOverloadCommand {
+	/**
+	 * Specifies that this command has data for both a slash and text command.
+	 */
+	type: 'overload';
+
+	/**
+	 * The name of the command.
+	 */
+	name: string;
+
+	/**
+	 * The description of the command.
+	 */
+	description: string;
+
+	/**
+	 * The options the text command uses. Slash command options are only in data.
+	 */
+	options: AnyCommandTextOption[];
+
+	/**
+	 * Overload commands do not permit plugins yet.
+	 */
+	plugins: [];
+
+	/**
+	 * The data of the command deployed to discord.
+	 */
+	data: RESTPostAPIApplicationCommandsJSONBody;
+
+	/**
+	 * Whether to delay the deployment of this command.
+	 */
+	delayedDeploy: boolean;
+
+	/**
+	 * The callback for the slash version of this command.
+	 * @param client The client of this command.
+	 * @param interaction The interaction that called this command.
+	 */
+	slashRun: (
+		client: DiscmClient,
+		interaction: ChatInputCommandInteraction
+	) => Awaitable<void>;
+
+	/**
+	 * The callback for the text version of command.
+	 * @param client The client of this command.
+	 * @param message The message that called the command.
+	 * @param options The options the command uses.
+	 */
+	textRun: (
+		client: DiscmClient,
+		message: Message,
+		options: CommandTextOptionResults
 	) => Awaitable<void>;
 }
 

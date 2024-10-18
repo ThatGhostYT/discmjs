@@ -1,19 +1,31 @@
-import { DiscmCommand, Plugins } from 'discm.js';
+import { DiscmCommand } from 'discm.js';
 
 export default new DiscmCommand({
 	type: 'text',
-	description: 'Does math',
-	plugins: [
-		Plugins.EveryOptionValid({
-			content: 'Not all options are valid.'
-		})
-	],
+	description: 'Does math.',
 	options: [
 		{
 			name: 'process',
 			description: 'The process to use.',
 			type: 'string',
-			choices: ['add', 'multiply', 'subtract', 'divide']
+			choices: [
+				{
+					name: 'add',
+					value: '+'
+				},
+				{
+					name: 'subtract',
+					value: '-'
+				},
+				{
+					name: 'multiply',
+					value: '*'
+				},
+				{
+					name: 'divide',
+					value: '/'
+				}
+			]
 		},
 		{
 			name: 'number1',
@@ -27,21 +39,16 @@ export default new DiscmCommand({
 		}
 	],
 	run({ message, options }) {
-		const operations = {
-			add: '+',
-			subtract: '-',
-			multiply: '*',
-			divide: '/'
-		};
+		const process = options.getString('process');
+		const number1 = options.getNumber('number1');
+		const number2 = options.getNumber('number2');
 
-		const equation = `${options['number1']?.value}${
-			operations[options['process']?.value as string]
-		}${options['number2']?.value}`;
+		const equation = `${number1}${process}${number2}`;
 
 		message.reply(
 			`The result of your equation (\`${equation}\`) is \`${eval(
 				equation
-			)}\``
+			)}\`.`
 		);
 	}
 });

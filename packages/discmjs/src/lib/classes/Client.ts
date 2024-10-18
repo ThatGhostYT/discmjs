@@ -134,13 +134,13 @@ export class DiscmClient extends Client {
 		const rest = new REST().setToken(this.token);
 
 		const commands = (await rest.get(
-			Routes.applicationCommands(this.user.id)
+			Routes.applicationCommands(this.application.id)
 		)) as ApplicationCommand[];
 
 		for (const command of commands) {
 			if (command.name === name) {
 				await rest.delete(
-					Routes.applicationCommand(this.user.id, command.id)
+					Routes.applicationCommand(this.application.id, command.id)
 				);
 				break;
 			}
@@ -214,12 +214,12 @@ export class DiscmClient extends Client {
 		const rest = new REST().setToken(this.token);
 
 		const commands = (await rest.get(
-			Routes.applicationCommands(this.user.id)
+			Routes.applicationCommands(this.application.id)
 		)) as ApplicationCommand[];
 
 		for (const command of commands) {
 			await rest.delete(
-				Routes.applicationCommand(this.user.id, command.id)
+				Routes.applicationCommand(this.application.id, command.id)
 			);
 		}
 	}

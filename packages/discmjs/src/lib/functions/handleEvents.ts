@@ -22,14 +22,25 @@ export const handleEvents = async (client: DiscmClient, eventsDir: string) => {
 		if (interaction.isChatInputCommand()) {
 			const command = client.commands.get(interaction.commandName);
 
-			if (command && command.type === 'slash') {
-				for (const plugin of command.plugins) {
-					const result = plugin.run({ command, client, interaction });
+			if (
+				command &&
+				(command.type === 'slash' || command.type === 'overload')
+			) {
+				if (command.type === 'overload') {
+					command.slashRun(client, interaction);
+				} else {
+					for (const plugin of command.plugins) {
+						const result = plugin.run({
+							command,
+							client,
+							interaction
+						});
 
-					if (result === 'stop') return;
+						if (result === 'stop') return;
+					}
+
+					command.run(client, interaction);
 				}
-
-				command.run(client, interaction);
 			}
 		}
 
@@ -50,58 +61,99 @@ export const handleEvents = async (client: DiscmClient, eventsDir: string) => {
 
 		const command = client.commands.get(name);
 
-		if (command && command.type === 'text') {
-			let options: CommandTextOptionResults = {};
+		if (
+			command &&
+			(command.type === 'text' || command.type === 'overload')
+		) {
+			let options: CommandTextOptionResults = {
+				getString(name) {
+					const option = command.options.find(
+						(o) => o.name === name && o.type === 'string'
+					);
+					const order = command.options.map((o) => o.name);
 
-			for (let i = 0; i < args.length; i++) {
-				const option = command.options[i]!;
-				let type = '';
+					if (option === undefined) return '';
+					else {
+						const i = order.findIndex((o) => o === option.name);
+						const value = args[i];
 
-				if (!/\d/.test(args[i]!) && !/(true)|(false)/i.test(args[i]!))
-					type = 'string';
-				else type = typeof eval(args[i]!.toLowerCase());
+						if (value === undefined) return '';
 
-				if (type !== option.type)
-					options[option.name] = {
-						name: option.name,
-						valid: false,
-						value: args[i]!
-					};
-				else if (
-					option.type === 'string' &&
-					option.choices &&
-					!option.choices.includes(args[i]!)
-				) {
-					options[option.name] = {
-						name: option.name,
-						valid: false,
-						value: args[i]!
-					};
-				} else
-					options[option.name] = {
-						name: option.name,
-						valid: true,
-						value:
-							type === 'number'
-								? Number(args[i]!)
-								: type === 'boolean'
-								? Boolean(args[i]!)
-								: args[i]!
-					};
+						if (/\d/.test(value)) return '';
+						if (/(true)|(false)/.test(value)) return '';
+
+						if (option.choices) {
+							if (
+								!option.choices
+									.map((c) => c.name)
+									.includes(value)
+							)
+								return '';
+							else
+								return option.choices.find(
+									(c) => c.name === value
+								)?.value!;
+						} else {
+							return value;
+						}
+					}
+				},
+
+				getNumber(name) {
+					const option = command.options.find(
+						(o) => o.name === name && o.type === 'number'
+					);
+					const order = command.options.map((o) => o.name);
+
+					if (option === undefined) return NaN;
+					else {
+						const i = order.findIndex((o) => o === option.name);
+						const value = args[i];
+
+						if (value === undefined) return NaN;
+
+						if (/(true)|(false)/.test(value)) return NaN;
+
+						return Number(value);
+					}
+				},
+
+				getBoolean(name) {
+					const option = command.options.find(
+						(o) => o.name === name && o.type === 'boolean'
+					);
+					const order = command.options.map((o) => o.name);
+
+					if (option === undefined) return '';
+					else {
+						const i = order.findIndex((o) => o === option.name);
+						const value = args[i];
+
+						if (value === undefined) return '';
+
+						if (/\d/.test(value)) return '';
+
+						return Boolean(value);
+					}
+				}
+			};
+
+			if (command.type === 'overload') {
+				command.textRun(client, message, options);
+			} else {
+				for (const plugin of command.plugins) {
+					const result = plugin.run({
+						command,
+						client,
+						message,
+						options
+					});
+
+					if (result === 'stop') return;
+				}
+
+				command.run(client, message, options);
 			}
-
-			for (const plugin of command.plugins) {
-				const result = plugin.run({
-					command,
-					client,
-					message,
-					options
-				});
-
-				if (result === 'stop') return;
-			}
-
-			command.run(client, message, options);
 		}
 
 		if (client.events.get('messageCreate')) {

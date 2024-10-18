@@ -18,7 +18,7 @@ export const deploy = async (
 	guildId?: string | string[]
 ) => {
 	const slashOnly = client.commands.filter(
-		(c) => c.type === 'slash'
+		(c) => c.type === 'slash' || c.type === 'overload'
 	) as Collection<string, ParsedSlashCommand>;
 
 	const commandRawData: CommandData[] = [];

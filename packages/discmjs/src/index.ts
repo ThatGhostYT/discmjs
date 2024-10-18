@@ -13,6 +13,3 @@ export * from './lib/types/interfaces';
 
 // Discord.JS
 export { ApplicationCommandOptionType as CommandOptionType } from 'discord.js';
-
-// Plugins
-export * from './lib/plugins/plugins';
