@@ -1,14 +1,14 @@
 # discm.js
 
 [![homepage](https://img.shields.io/badge/discm.js-homepage-magenta)](https://discm.js.org)
-[![downloads](https://img.shields.io/npm/dw/discm.js)](https://npmjs.com/packages/discm.js)
+[![downloads](https://img.shields.io/npm/dw/discm.js)](https://npmjs.com/package/discm.js)
 [![activity](https://img.shields.io/github/commit-activity/w/ThatGhostYT/discmjs)](https://github.com/ThatGhostYT/discmjs/tree/master)
 
-A framework built on top of and compatible with [discord.js](https://npmjs.com/packages/discord.js).
+A framework built on top of and compatible with [discord.js](https://npmjs.com/package/discord.js).
 
 ## Installation
 
-You can use our [cli](https://npmjs.com/packages/create-discm) to initialize a project.
+You can use our [cli](https://npmjs.com/package/create-discm) to initialize a project.
 
 ```shell
 npx create-discm@latest
