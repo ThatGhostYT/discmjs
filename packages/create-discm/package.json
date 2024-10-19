@@ -1,6 +1,6 @@
 {
 	"name": "create-discm",
-	"version": "1.0.5",
+	"version": "1.0.6",
 	"description": "A cli to create a template for discm.js",
 	"type": "module",
 	"scripts": {
@@ -8,7 +8,9 @@
 		"test": "tsc && node dist/bin.js",
 		"publish": "npm publish"
 	},
-	"bin": "dist/bin.js",
+	"bin": {
+		".": "dist/bin.js"
+	},
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
