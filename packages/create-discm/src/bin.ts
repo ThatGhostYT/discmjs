@@ -23,10 +23,6 @@ const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '../');
 
 const logger = new Logger();
 
-logger.message(
-	'Welcome to the {cyan:create-discm cli}. Thanks for chosing {cyan:discm.js} to improve your production experience.\n'
-);
-
 const defaultSettings: CliSettings = {
 	name: 'my-discm-js-bot',
 	language: 'js',
@@ -40,10 +36,17 @@ const defaultSettings: CliSettings = {
 (async () => {
 	let settings: CliSettings = defaultSettings;
 
-	const argv = await yargs(hideBin(process.argv)).option('y', {
-		type: 'boolean',
-		description: 'Use default settings.'
-	}).argv;
+	const argv = await yargs(hideBin(process.argv))
+		.help()
+		.version()
+		.option('y', {
+			type: 'boolean',
+			description: 'Use default settings.',
+		}).argv;
+
+	logger.message(
+		'Welcome to the {cyan:create-discm cli}. Thanks for chosing {cyan:discm.js} to improve your production experience.\n'
+	);
 
 	if (!argv.y) {
 		settings = {

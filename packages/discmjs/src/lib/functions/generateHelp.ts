@@ -266,7 +266,7 @@ async function textRun(client: DiscmClient, message: Message){
 	});
 
 	collector.on('end', () => {
-		response.edit({
+		if(message.channel.messages.cache.has(response.id)) response.edit({
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(
 					selectMenu.setDisabled()
