@@ -41,7 +41,7 @@ const defaultSettings: CliSettings = {
 		.version()
 		.option('y', {
 			type: 'boolean',
-			description: 'Use default settings.',
+			description: 'Use default settings.'
 		}).argv;
 
 	logger.message(

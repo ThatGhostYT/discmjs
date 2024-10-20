@@ -10,20 +10,20 @@ module.exports = DiscmCommand({
 			type: 'string',
 			choices: [
 				{
-					name: "add",
-					value: "+"
+					name: 'add',
+					value: '+'
 				},
 				{
-					name: "subtract",
-					value: "-"
+					name: 'subtract',
+					value: '-'
 				},
 				{
-					name: "multiply",
-					value: "*"
+					name: 'multiply',
+					value: '*'
 				},
 				{
-					name: "divide",
-					value: "/"
+					name: 'divide',
+					value: '/'
 				}
 			]
 		},
@@ -39,9 +39,9 @@ module.exports = DiscmCommand({
 		}
 	],
 	run({ message, options }) {
-		const process = options.getString("process");
-		const number1 = options.getNumber("number1");
-		const number2 = options.getNumber("number2");
+		const process = options.getString('process');
+		const number1 = options.getNumber('number1');
+		const number2 = options.getNumber('number2');
 
 		const equation = `${number1}${process}${number2}`;
 

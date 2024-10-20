@@ -1,10 +1,13 @@
 {
 	"name": "discm.js",
-	"version": "1.5.1",
+	"version": "1.5.2",
 	"description": "A discord.js framework for making discord bots.",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"homepage": "discm.js.org",
+	"repository": {
+		"url": "https://github.com/ThatGhostYT/discmjs"
+	},
 	"scripts": {
 		"build": "tsc",
 		"publish": "npm run build && npm publish",
