@@ -1,6 +1,10 @@
 import enquirer from 'enquirer';
 import chalk from 'chalk';
+import { readdirSync } from 'fs';
 import { Logger } from './Logger.js';
+
+const getCommands = (lang: 'js' | 'ts') =>
+	readdirSync(`./templates/commands/${lang}`);
 
 const logger = new Logger();
 
@@ -94,4 +98,30 @@ export async function promptOverwrite(app: string) {
 	})) as { overwrite: 'clear' | 'overwrite' | 'cancel' };
 
 	return overwrite;
+}
+
+export async function promptCommand(lang: 'js' | 'ts') {
+	const commands = getCommands(lang);
+
+	const { command } = (await enquirer.prompt({
+		type: 'select',
+		name: 'command',
+		message: 'What template command do you want to copy?',
+		choices: commands
+	})) as { command: string };
+
+	logger.info(`Templating ${command} command.`);
+
+	return command;
+}
+
+export async function promptCopyDir() {
+	const { copyDir } = (await enquirer.prompt({
+		type: 'input',
+		name: 'copyDir',
+		message: 'Which directory should we copy the command into?'
+	})) as { copyDir: string };
+
+	logger.info(`Copying into ${copyDir}.`);
+	return copyDir;
 }

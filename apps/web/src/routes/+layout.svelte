@@ -30,7 +30,6 @@
 </svelte:head>
 <svelte:body on:mousemove={followMouse}/>
 
-<!-- svelte-ignore a11y-mouse-events-have-key-events -->
 <header>
     <a href={$page.url.pathname} id="logo">discm<TextGradient color1="pink" color2="mediumpurple">.js</TextGradient></a>
     <nav>

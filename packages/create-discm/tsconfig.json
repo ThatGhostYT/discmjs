@@ -1,5 +1,5 @@
 {
-	"exclude": ["dist", "node_modules", "templates"],
+	"exclude": ["dist", "node_modules", "templates", "test"],
 	"compilerOptions": {
 		"module": "ESNext",
 		"target": "ESNext",

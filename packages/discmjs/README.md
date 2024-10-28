@@ -36,24 +36,24 @@ Here is an example slash command made with discm:
 import { DiscmCommand, CommandOptionType } from 'discm.js';
 
 export default new DiscmCommand({
-	type: 'slash',
-	description: 'Echoes what you say.',
-	options: [
-		{
-			type: CommandOptionType.String,
-			name: 'echo',
-			description: 'Phrase to echo.',
-			required: true
-		}
-	],
-	run: ({ interaction }) => {
-		const echo = interaction.options.getString('echo');
+ type: 'slash',
+ description: 'Echoes what you say.',
+ options: [
+  {
+   type: CommandOptionType.String,
+   name: 'echo',
+   description: 'Phrase to echo.',
+   required: true
+  }
+ ],
+ run: ({ interaction }) => {
+  const echo = interaction.options.getString('echo');
 
-		interaction.reply({
-			ephemeral: true,
-			content: `${interaction.user}, this is the phrase I am echoing: \`${echo}\``
-		});
-	}
+  interaction.reply({
+   ephemeral: true,
+   content: `${interaction.user}, this is the phrase I am echoing: \`${echo}\``
+  });
+ }
 });
 ```
 
@@ -72,44 +72,44 @@ Here is an example text command made with discm:
 import { DiscmCommand } from 'discm.js';
 
 export default new DiscmCommand({
-	type: 'text',
-	description: 'Does math.',
-	options: [
-		{
-			name: 'process',
-			description: 'The process to use.',
-			type: 'string',
-			choices: [
-				{ name: 'add', value: '+' },
-				{ name: 'subtract', value: '-' },
-				{ name: 'multiply', value: '*' },
-				{ name: 'divide', value: '/' }
-			]
-		},
-		{
-			name: 'number1',
-			description: 'The first number to use in the operation.',
-			type: 'number'
-		},
-		{
-			name: 'number2',
-			description: 'The second number to use in the operation',
-			type: 'number'
-		}
-	],
-	run({ message, options }) {
-		const process = options.getString('process');
-		const number1 = options.getNumber('number1');
-		const number2 = options.getNumber('number2');
+ type: 'text',
+ description: 'Does math.',
+ options: [
+  {
+   name: 'process',
+   description: 'The process to use.',
+   type: 'string',
+   choices: [
+    { name: 'add', value: '+' },
+    { name: 'subtract', value: '-' },
+    { name: 'multiply', value: '*' },
+    { name: 'divide', value: '/' }
+   ]
+  },
+  {
+   name: 'number1',
+   description: 'The first number to use in the operation.',
+   type: 'number'
+  },
+  {
+   name: 'number2',
+   description: 'The second number to use in the operation',
+   type: 'number'
+  }
+ ],
+ run({ message, options }) {
+  const process = options.getString('process');
+  const number1 = options.getNumber('number1');
+  const number2 = options.getNumber('number2');
 
-		const equation = `${number1}${process}${number2}`;
+  const equation = `${number1}${process}${number2}`;
 
-		message.reply(
-			`The result of your equation (\`${equation}\`) is \`${eval(
-				equation
-			)}\`.`
-		);
-	}
+  message.reply(
+   `The result of your equation (\`${equation}\`) is \`${eval(
+    equation
+   )}\`.`
+  );
+ }
 });
 ```
 
@@ -124,11 +124,11 @@ Here is an example event made with discm:
 import { DiscmEvent } from 'discm.js';
 
 export default new DiscmEvent({
-	name: 'ready',
-	once: true,
-	run(client) {
-		client.logger.success(`Successfully logged in as ${client.user?.tag}`);
-	}
+ name: 'ready',
+ once: true,
+ run(client) {
+  client.logger.success(`Successfully logged in as ${client.user?.tag}`);
+ }
 });
 ```
 
@@ -145,7 +145,7 @@ Discm exports a `DiscmClient` class, which extends the `Client` class discord.js
 ```ts
 // filename: lib/classes/Client.ts
 export class DiscmClient extends Client {
-	//...
+ //...
 }
 ```
 
@@ -156,14 +156,14 @@ Discord.js requires some data when the class is initialized, and so does discm.
 ```ts
 // filename: index.ts
 const client = new DiscmClient({
-	// required by discord.js
-	intents: ['Guilds', 'GuildMessages', 'MessageContent'],
+ // required by discord.js
+ intents: ['Guilds', 'GuildMessages', 'MessageContent'],
 
-	// required by discm.js
-	dirs: {
-		commands: `${__dirname}/commands`,
-		events: `${__dirname}/events`
-	}
+ // required by discm.js
+ dirs: {
+  commands: `${__dirname}/commands`,
+  events: `${__dirname}/events`
+ }
 });
 ```
 
@@ -178,12 +178,12 @@ Logging into your client in discm is as easy as doing it in discord.js.
 import { TOKEN, PRIVATE_SERVER_ID } from './config.json';
 
 const client = new DiscmClient({
-	intents: ['Guilds', 'GuildMessages', 'MessageContent'],
-	dirs: {
-		commands: `${__dirname}/commands`,
-		events: `${__dirname}/events`
-	},
-	global: false
+ intents: ['Guilds', 'GuildMessages', 'MessageContent'],
+ dirs: {
+  commands: `${__dirname}/commands`,
+  events: `${__dirname}/events`
+ },
+ global: false
 });
 
 client.login(TOKEN, PRIVATE_SERVER_ID);

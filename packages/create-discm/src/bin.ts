@@ -16,7 +16,9 @@ import {
 	promptManager,
 	promptInstall,
 	promptGitInit,
-	promptOverwrite
+	promptOverwrite,
+	promptCommand,
+	promptCopyDir
 } from './prompts.js';
 
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '../');
@@ -42,7 +44,78 @@ const defaultSettings: CliSettings = {
 		.option('y', {
 			type: 'boolean',
 			description: 'Use default settings.'
-		}).argv;
+		})
+		.command(
+			'command',
+			false,
+			{
+				command: {
+					type: 'string'
+				},
+				language: {
+					type: 'string'
+				},
+				copyDir: {
+					type: 'string'
+				}
+			},
+			async (yargs) => {
+				let lang = (yargs._[2] || (await promptLanguage())) as
+					| 'js'
+					| 'ts';
+				let command =
+					(yargs._[1] as string) || (await promptCommand(lang));
+				let copyDir = (yargs._[3] as string) || (await promptCopyDir());
+
+				const spinner = ora('Templating ...\n').start();
+
+				const templateDir = path.join(
+					ROOT,
+					'templates',
+					'commands',
+					lang
+				);
+
+				for (const file of fs.readdirSync(
+					`${templateDir}/${command}`
+				)) {
+					const filename = `${copyDir}/commands/${file}`;
+					if (fs.existsSync(filename)) {
+						if (fs.readFileSync(filename).length === 0) {
+							spinner.info(
+								`Command ${command} already exists but is empty. Continuing ...\n`
+							);
+						} else {
+							spinner.stopAndPersist();
+
+							const overwrite = await promptOverwrite(command);
+
+							if (overwrite === 'cancel') {
+								spinner.fail('Cancelling installation ...');
+								process.exit(0);
+							} else if (overwrite === 'clear') {
+								spinner.info(
+									`Clearing ${chalk.cyan.bold(
+										file
+									)} and installing the command ...\n`
+								);
+
+								fs.writeFileSync(filename, '');
+							}
+						}
+					}
+					fs.copyFileSync(
+						`${templateDir}/${command}/${file}`,
+						filename
+					);
+				}
+
+				spinner.succeed(
+					'Successfully added the command to your project!'
+				);
+				process.exit(0);
+			}
+		).argv;
 
 	logger.message(
 		'Welcome to the {cyan:create-discm cli}. Thanks for chosing {cyan:discm.js} to improve your production experience.\n'
@@ -133,4 +206,5 @@ const defaultSettings: CliSettings = {
 	}
 
 	spinner.succeed('Finished installing discm.js! Enjoy!');
+	process.exit(0);
 })();

@@ -2,4 +2,5 @@
 **/dist/
 **/.svelte-kit/
 
-**/*.{md,json}
+**/*.md
+**/*.json

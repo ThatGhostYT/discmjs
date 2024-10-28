@@ -1,4 +1,4 @@
-import { DiscmCommand, CommandOptionType } from 'discm.js';
+import { CommandOptionType, DiscmCommand } from 'discm.js';
 
 export default new DiscmCommand({
 	type: 'slash',

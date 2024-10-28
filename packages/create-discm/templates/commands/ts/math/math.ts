@@ -48,7 +48,7 @@ export default new DiscmCommand({
 		message.reply(
 			`The result of your equation (\`${equation}\`) is \`${eval(
 				equation
-			)}\``
+			)}\`.`
 		);
 	}
 });
