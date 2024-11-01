@@ -23,6 +23,8 @@ import {
 
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '../');
 
+console.log(ROOT);
+
 const logger = new Logger();
 
 const defaultSettings: CliSettings = {
@@ -104,8 +106,8 @@ const defaultSettings: CliSettings = {
 							}
 						}
 					}
-					fs.copyFileSync(
-						`${templateDir}/${command}/${file}`,
+					fs.copySync(
+						path.join(templateDir,command,file),
 						filename
 					);
 				}

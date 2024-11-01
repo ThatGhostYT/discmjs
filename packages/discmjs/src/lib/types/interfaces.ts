@@ -74,7 +74,7 @@ export interface AdditionalClientOptions {
 	 * 		events: `${__dirname}/events`
 	 * 	},
 	 * 	autoGenerateHelpCommand: {
-	 * 		type: 'slash',
+	 * 		type: 'slash'
 	 * 	}
 	 * })
 	 */
