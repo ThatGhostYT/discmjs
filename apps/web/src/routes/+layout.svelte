@@ -31,7 +31,7 @@
 <svelte:body on:mousemove={followMouse}/>
 
 <header>
-    <a href={$page.url.pathname} id="logo">discm<TextGradient color1="pink" color2="mediumpurple">.js</TextGradient></a>
+    <a href="/" id="logo">discm<TextGradient color1="pink" color2="mediumpurple">.js</TextGradient></a>
     <nav>
         <div id="shard" bind:this={shard}></div>
         <ul
@@ -43,7 +43,7 @@
         >
             {#each ["about","why","benefits"] as id (id)}
                 <li>
-                    <a href="/#{id}">
+                    <a href="/#{id}" on:click={hamburgerMenu}>
                         {#if $page.url.href.endsWith(`#${id}`)}
                             <TextGradient color1="pink" color2="mediumpurple">{id.charAt(0).toUpperCase() + id.slice(1).toLowerCase()}</TextGradient>
                         {:else}
@@ -52,6 +52,15 @@
                     </a>
                 </li>
             {/each}
+            <li>
+                <a href="/guide" on:click={hamburgerMenu}>
+                    {#if $page.url.href.endsWith("/guide")}
+                        <TextGradient color1="pink" color2="mediumpurple">Guide</TextGradient>
+                    {:else}
+                        <HoverTextGradient color1="pink" color2="mediumpurple">Guide</HoverTextGradient>
+                    {/if}
+                </a>
+            </li>
         </ul>
         <button
             id="icon"
@@ -69,12 +78,6 @@
 <main>
     <slot/>
 </main>
-
-<footer>
-    <p>
-        <TextGradient color1="pink" color2="mediumpurple">&copy;</TextGradient> Dylan Mingua 2024
-    </p>
-</footer>
 
 <style lang="scss">
     @keyframes slideIn{
@@ -220,14 +223,5 @@
                 }
             }
         }
-    }
-
-    footer{
-        position: relative;
-        bottom: 0;
-        height: 12vmax;
-        width: 100%;
-        background: black;
-        border-top: 1px solid #555;
     }
 </style>

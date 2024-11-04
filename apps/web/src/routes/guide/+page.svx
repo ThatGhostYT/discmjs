@@ -1,19 +1,29 @@
-# discm.js
+<script lang="ts">
+    import { TextGradient, Codeblock, CodeblockTabs, CodeblockTabOption } from "@discmjs/ui";
+</script>
 
-[![homepage](https://img.shields.io/badge/discm.js-homepage-magenta)](https://discm.js.org)
-[![downloads](https://img.shields.io/npm/dw/discm.js)](https://npmjs.com/package/discm.js)
-[![activity](https://img.shields.io/github/commit-activity/w/ThatGhostYT/discmjs)](https://github.com/ThatGhostYT/discmjs/tree/master)
-[![version](https://img.shields.io/npm/v/discm.js)](https://www.npmjs.com/package/discm.js?activeTab=versions)
+# <TextGradient color1="pink" color2="mediumpurple">Guide</TextGradient>
 
-A framework built on top of and compatible with [discord.js](https://npmjs.com/package/discord.js).
+A framework built on top of and compatible with <a href="https://npmjs.com/package/discord.js" target="_blank">discord.js</a>.
 
-## Installation
+## <a class="heading-link" href="#installation"><TextGradient color1="pink" color2="mediumpurple">Installation</TextGradient></a>
 
-You can use our [cli](https://npmjs.com/package/create-discm) to initialize a project.
+You can use our <a href="https://npmjs.com/package/create-discm" target="_blank">cli</a> to initialize a project.
 
-```shell
-npx create-discm@latest
-```
+<CodeblockTabs identifier="cmd" names={["npm","pnpm","yarn","bun"]}>
+    <CodeblockTabOption identifier="cmd" name="npm" language="shell">
+        npx create-discm@latest
+    </CodeblockTabOption>
+    <CodeblockTabOption identifier="cmd" name="pnpm" language="shell">
+        pnpm dlx create-discm@latest
+    </CodeblockTabOption>
+    <CodeblockTabOption identifier="cmd" name="yarn" language="shell">
+        yarn dlx create-discm@latest
+    </CodeblockTabOption>
+    <CodeblockTabOption identifier="cmd" name="bun" language="shell">
+        bunx create-discm@latest
+    </CodeblockTabOption>
+</CodeblockTabs>
 
 It will prompt a series of questions, to skip this use `-y` at the end of the command to bypass all questions.
 This will use a set of default values.
@@ -21,21 +31,39 @@ This will use a set of default values.
 > [!NOTE]
 > Using `-y` will initialize the project with javascript automatically. If you wish to use typescript then do not bypass the questions.
 
-## Command and Event Handling
+Or install the package directly, however this will not scaffold a project for you, and you will have to set the project up manually.
 
-If you look at the commands folder of your project (or [our example bot](https://github.com/ThatGhostYT/discmjs/tree/master/apps/bot)) you will see two directories.
+<CodeblockTabs identifier="install" names={["npm","pnpm","yarn","bun"]}>
+    <CodeblockTabOption identifier="install" name="npm" language="shell">
+        npm i discm.js
+    </CodeblockTabOption>
+    <CodeblockTabOption identifier="install" name="pnpm" language="shell">
+        pnpm add discm.js
+    </CodeblockTabOption>
+    <CodeblockTabOption identifier="install" name="yarn" language="shell">
+        yarn add discm.js
+    </CodeblockTabOption>
+    <CodeblockTabOption identifier="install" name="bun" language="shell">
+        bun add discm.js
+    </CodeblockTabOption>
+</CodeblockTabs>
+
+## <a class="heading-link" href="#command-and-event-handling"><TextGradient color1="pink" color2="mediumpurple">Command and Event Handling</TextGradient></a>
+
+If you look at the commands folder of your project (or <a href="https://github.com/ThatGhostYT/discmjs/tree/master/apps/bot" target="_blank">our example bot</a>) you will see two directories.
 
 `commands` - each command is represented by a file. The file name is used for the command name.
+
 `events` - each event is also represented by a file. However, the file name is NOT used for the event name.
 
-### Slash Commands
+### <a class="heading-link" href="#slash-commands"><TextGradient color1="pink" color2="mediumpurple">Slash Commands</TextGradient></a>
 
 Here is an example slash command made with discm:
 
 ```ts
 // filename: commands/echo.ts
 import { DiscmCommand, CommandOptionType } from 'discm.js';
-
+    
 export default new DiscmCommand({
  type: 'slash',
  description: 'Echoes what you say.',
@@ -52,7 +80,7 @@ export default new DiscmCommand({
 
   interaction.reply({
    ephemeral: true,
-   content: `${interaction.user}, this is the phrase I am echoing: \`${echo}\``
+   content: `${interaction.user}, this is the phrase I am echoing: \\\`${echo}\\\``
   });
  }
 });
@@ -61,10 +89,12 @@ export default new DiscmCommand({
 All properties are directly deployed to discord's api (except for `type`, `plugins`, `delayDeploy` and `run`).
 
 `type` is for the parser so that it knows which commands are slash and text. Only slash commands are deployed to discord.
+
 `delayDeploy` just delays the deployment of that slash command. If this is set to `true`, the command will NOT deploy until manually done so.
+
 `run` is just the callback function for the command.
 
-### Text Commands
+### <a class="heading-link" href="#text-commands"><TextGradient color1="pink" color2="mediumpurple">Text Commands</TextGradient></a>
 
 Here is an example text command made with discm:
 
@@ -106,9 +136,9 @@ export default new DiscmCommand({
   const equation = `${number1}${process}${number2}`;
 
   message.reply(
-   `The result of your equation (\`${equation}\`) is \`${eval(
+   `The result of your equation (\\\`${equation}\\\`) is \\\`${eval(
     equation
-   )}\`.`
+   )}\\\`.`
   );
  }
 });
@@ -116,7 +146,7 @@ export default new DiscmCommand({
 
 Text command options (arguments) are automatically parsed for you, and the system is made to mimic slash command options.
 
-### Events
+### <a class="heading-link" href="#events"><TextGradient color1="pink" color2="mediumpurple">Events</TextGradient></a>
 
 Here is an example event made with discm:
 
@@ -143,7 +173,7 @@ We use `once` on the `ready` event because it is only emitted one time.
 
 The callback will provide the client, aswell as any arguments the discord event provides.
 
-## The Client
+## <a class="heading-link" href="#the-client"><TextGradient color1="pink" color2="mediumpurple">The Client</TextGradient></a>
 
 Discm exports a `DiscmClient` class, which extends the `Client` class discord.js exports.
 
@@ -159,22 +189,15 @@ This allows you to use all client methods/properties still. Commands are parsed 
 Discord.js requires some data when the class is initialized, and so does discm.
 
 ```ts
-// filename: index.ts
-const client = new DiscmClient({
- // required by discord.js
- intents: ['Guilds', 'GuildMessages', 'MessageContent'],
-
- // required by discm.js
- dirs: {
-  commands: `${__dirname}/commands`,
-  events: `${__dirname}/events`
- }
-});
+// filename: lib/classes/Client.ts
+export class DiscmClient extends Client {
+ //...
+}
 ```
 
 The `dirs` property specifies which directories to read commands and events from.
 
-### Logging In
+### <a class="heading-link" href="#logging-in"><TextGradient color1="pink" color2="mediumpurple">Logging In</TextGradient></a>
 
 Logging into your client in discm is as easy as doing it in discord.js.
 
@@ -198,34 +221,61 @@ The `global` property is not required, and is set to `true` by default. This jus
 
 If `global` is true, then the `PRIVATE_SERVER_ID` does not have to be specified, and the code can just be run like this:
 
-```ts
-client.login(TOKEN);
-```
+<Codeblock language="typescript">
+    client.login(TOKEN);
+</Codeblock>
 
 But if it is false, then the server ids are required. The argument can either be a singular guild id, or an array of guild ids.
 
-### The Help Command
+### <a class="heading-link" target="_blank" href="#the-help-command"><TextGradient color1="pink" color2="mediumpurple">The Help Command</TextGradient></a>
 
 If you set the `autoGenerateHelp` property in the client settings to `true`, then it will automatically create a help command for you.
 
 > An object can also be supplied and this will allow you to configure the help command.
 
-## Command Overloading
+## <a class="heading-link" href="#command-overloading"><TextGradient color1="pink" color2="mediumpurple">Command Overloading</TextGradient></a>
 
 Command overloading allows you to make a command that will work both as a text and slash command.
 
 Since using text commands is more limiting than using a slash command, discm treats these as two separate commands, and then in the parsing process merges them together.
 
-To create an overload, make a new file in the `commands` directory and name `<command-name>.overload.ts` or `<command-name>.overload.js` if you are using javascript.
+To create an overload, make a new file in the `commands` directory and name `&lt;command-name&gt;.overload.ts` or `&lt;command-name&gt;.overload.js` if you are using javascript.
 
 Make sure that a there is a file without the `.overload` or else discm will throw this error:
 
-```txt
-CommandError: Cannot overload a command that doesn't exist. Try removing ".overload" from the file name
-```
+<Codeblock language="text" allowCopy={false}>
+    CommandError: Cannot overload a command that doesn't exist. Try removing ".overload" from the file name
+</Codeblock>
 
 You also need to make sure that the commands are different types, or a similar error will be thrown:
 
-```txt
-CommandError: Cannot overload a command with the same type.
-```
+<Codeblock language="text" allowCopy={false}>
+    CommandError: Cannot overload a command with the same type.
+</Codeblock>
+
+<style lang="scss">
+    @for $i from 1 through 3{
+        h#{$i}{
+            text-align: center;
+            text-decoration: none !important;
+        }
+    }
+
+    code{
+        background-color: #333;
+        color: mediumpurple;
+        padding: 5px;
+        border-radius: 5px;
+    }
+
+    blockquote{
+        background-color: #222;
+        padding: 5px;
+        border-radius: 5px;
+    }
+
+    a:not(.heading-link){
+        color: mediumpurple;
+        text-decoration: underline;
+    }
+</style>
