@@ -1,8 +1,12 @@
 <script lang="ts">
-    import { TextGradient, Codeblock, CodeblockTabs, CodeblockTabOption } from "@discmjs/ui";
+    import { TextGradient, Codeblock, CodeblockTabs, CodeblockTabOption, SpecialBlockquote } from "@discmjs/ui";
 </script>
 
 # <TextGradient color1="pink" color2="mediumpurple">Guide</TextGradient>
+
+<SpecialBlockquote type="warning">
+    This page is still a work in progress.
+</SpecialBlockquote>
 
 A framework built on top of and compatible with <a href="https://npmjs.com/package/discord.js" target="_blank">discord.js</a>.
 
@@ -28,8 +32,9 @@ You can use our <a href="https://npmjs.com/package/create-discm" target="_blank"
 It will prompt a series of questions, to skip this use `-y` at the end of the command to bypass all questions.
 This will use a set of default values.
 
-> [!NOTE]
-> Using `-y` will initialize the project with javascript automatically. If you wish to use typescript then do not bypass the questions.
+<SpecialBlockquote>
+    Using <code>-y</code> will initialize the project with javascript automatically. If you wish to use typescript then do not bypass the questions.
+</SpecialBlockquote>
 
 Or install the package directly, however this will not scaffold a project for you, and you will have to set the project up manually.
 
@@ -227,11 +232,13 @@ If `global` is true, then the `PRIVATE_SERVER_ID` does not have to be specified,
 
 But if it is false, then the server ids are required. The argument can either be a singular guild id, or an array of guild ids.
 
-### <a class="heading-link" target="_blank" href="#the-help-command"><TextGradient color1="pink" color2="mediumpurple">The Help Command</TextGradient></a>
+### <a class="heading-link" href="#the-help-command"><TextGradient color1="pink" color2="mediumpurple">The Help Command</TextGradient></a>
 
 If you set the `autoGenerateHelp` property in the client settings to `true`, then it will automatically create a help command for you.
 
-> An object can also be supplied and this will allow you to configure the help command.
+<SpecialBlockquote type="tip">
+    An object can also be supplied and this will allow you to configure the help command.
+</SpecialBlockquote>
 
 ## <a class="heading-link" href="#command-overloading"><TextGradient color1="pink" color2="mediumpurple">Command Overloading</TextGradient></a>
 
@@ -264,12 +271,6 @@ You also need to make sure that the commands are different types, or a similar e
     code{
         background-color: #333;
         color: mediumpurple;
-        padding: 5px;
-        border-radius: 5px;
-    }
-
-    blockquote{
-        background-color: #222;
         padding: 5px;
         border-radius: 5px;
     }
