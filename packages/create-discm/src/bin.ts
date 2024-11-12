@@ -107,7 +107,7 @@ const defaultSettings: CliSettings = {
 						}
 					}
 					fs.copySync(
-						path.join(templateDir,command,file),
+						path.join(templateDir, command, file),
 						filename
 					);
 				}

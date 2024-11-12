@@ -1,6 +1,6 @@
 <script lang="ts">
     export let language: string;
-    export let allowCopy = true;
+    export let disableCopy = false;
 
     let copied = false;
 
@@ -18,7 +18,7 @@
     <div style="display: none;" bind:this={slot}><slot/></div>
     <div class="heading">
         {language}
-        {#if allowCopy}
+        {#if !disableCopy}
             <button class="copy" on:click={onCopy}>
                 {#if copied}
                     Copied!

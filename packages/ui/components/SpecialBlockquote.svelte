@@ -1,9 +1,10 @@
 <script lang="ts">
-    import { default as TextGradient } from "./TextGradient.svelte";
+    import TextGradient from "./TextGradient.svelte";
 
     type Types = "note" | "warning" | "tip";
     type Colors = {
         [P in Types]: {
+            name: Capitalize<P>;
             color1: string;
             color2: string;
             icon: string;
@@ -14,16 +15,19 @@
 
     const colors: Colors = {
         note: {
+            name: "Note",
             color1: "pink",
             color2: "mediumpurple",
             icon: "fa-circle-info"
         },
         warning: {
+            name: "Warning",
             color1: "yellow",
             color2: "darkorange",
             icon: "fa-triangle-exclamation"
         },
         tip: {
+            name: "Tip",
             color1: "lightgreen",
             color2: "darkgreen",
             icon: "fa-lightbulb"
@@ -35,9 +39,9 @@
     <blockquote style="--color1: {colors[type].color1}; --color2: {colors[type].color2}">
         <div class="side"></div>
         <div class="heading">
-            <i class="fa-solid {colors[type].icon}" style="color: {colors[type].color1};"></i>
+            <i class="fa-solid {colors[type].icon}" style="color: {colors[type].color1}"></i>
             <TextGradient color1={colors[type].color1} color2={colors[type].color2}>
-                {type.slice(0,1).toUpperCase() + type.slice(1).toLowerCase()}
+                {colors[type].name}
             </TextGradient>
         </div>
         <p class="slot"><slot/></p>
@@ -47,7 +51,7 @@
 <style lang="scss">
     blockquote{
         position: relative;
-        background-color: #222;
+        background-color: #111;
         padding: 15px 5px;
         border-radius: 0 5px 5px 0;
 

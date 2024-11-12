@@ -13,7 +13,7 @@
             var(--color1),
             var(--color2)
         );
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        color: transparent;
     }
 </style>

@@ -1,0 +1,93 @@
+<script lang="ts">
+    import { TextGradient, SpecialBlockquote, Codeblock } from "@discmjs/ui";
+
+    const loginCode = `// filename: lib/classes/Client.ts
+/**
+ * Logs the bot into discord. Emits the \`ready\` event once the client successfully logs in.
+ * This method also automatically deploys all slash commands.
+ * If {@link DiscmClient.delayDeploy delayed deploy} is set to true, the commands will not deploy.
+ * @param token The token of the bot account to log in to. Can be obtained via {@link https://discord.com/developers discord developer portal}.
+ * @param guildId The id of a guild (or a list of guild ids) to privately deploy commands to. If the bot is not a global bot, the parameter is not required.
+ * @returns Promise<string>
+ */
+public override async login(token: string, guildId?: string | string[]) {
+    if (guildId === undefined && !this.delayedDeploy && !this.global)
+        throw new DeployError(
+            'Cannot privately deploy with no provided guild ids.'
+        );
+
+    await super.login(token);
+    if (!this.delayedDeploy) await deploy(this, guildId);
+
+    return token;
+}`;
+</script>
+
+## <TextGradient color1="pink" color2="mediumpurple">Intents</TextGradient>
+
+Intents are a security feature discord has. This tells discord what your bot's intentions are.
+
+You can find a list of intents <a href="https://discord.com/developers/docs/events/gateway#list-of-intents" class="guide-link" target="_blank">here</a>.
+
+<SpecialBlockquote>
+    There are two types of intents:
+
+    - **<TextGradient color1="pink" color2="mediumpurple">Standard</TextGradient>**: can be passed with no additional settings or configurations.
+    - **<TextGradient color1="pink" color2="mediumpurple">Privileged</TextGradient>**: have to be toggled in your bot's settings before passing. For bots within 100+ guilds you also need to apply for said intents after verification.
+
+</SpecialBlockquote>
+
+<a href="https://discord.com/developers/docs/events/gateway" class="button-link" target="_blank">Learn more about gateway intents <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+
+## <TextGradient color1="pink" color2="mediumpurple">Commands</TextGradient>
+
+Discm has two base types of commands:
+
+- Text
+- Slash
+
+### <TextGradient color1="pink" color2="mediumpurple">Text Commands</TextGradient>
+
+Text commands are not uploaded to discord for deployment, as all it does is look for messages, read the contents, and determine if it is a command or if it is just a message.
+
+Text commands require <code class="inline">GuildMessages</code> and <code class="inline">MessageContent</code> intents.
+
+Prefixes help determine which messages are commands and which aren't, your bot's prefix can be set via <code class="inline">DiscmClient#prefix</code>.
+
+Text commands can accept arguments, however it is not as easy as slash command arguments, as you would have to parse everything yourself.
+
+<SpecialBlockquote type="tip">
+    Discm automatically parses arguments for you, but if you wish to parse yourself, do not define <code class="inline">DiscmCommand&lt;"text"&gt;#options</code>
+</SpecialBlockquote>
+
+### <TextGradient color1="pink" color2="mediumpurple">Slash Commands</TextGradient>
+
+Slash commands have to be uploaded to discord for deployment, which is automatically handled by discm.
+
+They can either be deployed globally (meaning every guild the bot is a member of) or privately by specifing the guild id to deploy to (if the bot is a member of that guild).
+
+To deploy commands privately set <code class="inline">DiscmClient#global</code> to false. It is set to true by default.
+
+You can also delay the deployment of every command or individual commands via <code class="inline">DiscmClient#delayDeploy</code> or <code class="inline">DiscmCommand#delayDeploy</code>.
+
+These commands will not deploy until <code class="inline">DiscmClient#deploy</code> or <code class="inline">DiscmClient#deployCommand</code> are called.
+
+<SpecialBlockquote>
+    If <code class="inline">DiscmClient#global</code> is set to false, you need to provide either a singular guild id, or an array of guild ids to the login function.
+
+    The login function on <code class="inline">DiscmClient</code> overloads discord.js's <code class="inline">Client#login</code>
+
+    <Codeblock language="typescript" disableCopy>
+        {loginCode}
+    </Codeblock>
+</SpecialBlockquote>
+
+Slash commands can also accept arguments, which are automatically parsed for you by discord.
+
+## <TextGradient color1="pink" color2="mediumpurple">Events</TextGradient>
+
+Events tell us when something in the guild happens, like when a message is sent or deleted, when a member joins or leaves the guild, or when someone uses a slash command.
+
+Discm listens to <code class="inline">InteractionCreate</code> and <code class="inline">MessageCreate</code> to detect and run commands, you can still listen to these commands manually, however it will be ran after the discm code is ran.
+
+<a href="https://discord.com/developers/docs/events/gateway-events" class="button-link" target="_blank">Learn more about gateway events <i class="fa-solid fa-arrow-up-right-from-square"></i></a>

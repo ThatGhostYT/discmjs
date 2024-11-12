@@ -44,7 +44,7 @@
             {#each ["about","why","benefits"] as id (id)}
                 <li>
                     <a href="/#{id}" on:click={hamburgerMenu}>
-                        {#if $page.url.href.endsWith(`#${id}`)}
+                        {#if $page.url.href.split("/").includes(`#${id}`)}
                             <TextGradient color1="pink" color2="mediumpurple">{id.charAt(0).toUpperCase() + id.slice(1).toLowerCase()}</TextGradient>
                         {:else}
                             <HoverTextGradient color1="pink" color2="mediumpurple">{id.charAt(0).toUpperCase() + id.slice(1).toLowerCase()}</HoverTextGradient>
@@ -54,7 +54,7 @@
             {/each}
             <li>
                 <a href="/guide" on:click={hamburgerMenu}>
-                    {#if $page.url.href.endsWith("/guide")}
+                    {#if $page.url.href.split("/").includes("guide")}
                         <TextGradient color1="pink" color2="mediumpurple">Guide</TextGradient>
                     {:else}
                         <HoverTextGradient color1="pink" color2="mediumpurple">Guide</HoverTextGradient>

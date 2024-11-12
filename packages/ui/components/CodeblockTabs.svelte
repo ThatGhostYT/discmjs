@@ -3,6 +3,7 @@
 
     export let identifier: string;
     export let names: string[];
+    export let disableCopy = false;
 
     let copied = false;
 
@@ -48,13 +49,15 @@
                 </button>
             {/each}
         </div>
-        <button class="copy" on:click={onCopy}>
-            {#if copied}
-                Copied!
-            {:else}
-                Copy
-            {/if}
-        </button>
+        {#if !disableCopy}
+            <button class="copy" on:click={onCopy}>
+                {#if copied}
+                    Copied!
+                {:else}
+                    Copy
+                {/if}
+            </button>
+        {/if}
     </div>
     <div class="display" bind:this={slot}>
         <slot/>

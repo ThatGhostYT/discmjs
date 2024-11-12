@@ -1,0 +1,50 @@
+<script lang="ts">
+    import { CodeblockTabs, CodeblockTabOption, SpecialBlockquote } from "@discmjs/ui";
+
+    let eventTsCode = `// filename: events/ready.ts
+import { DiscmEvent } from 'discm.js';
+
+export default new DiscmEvent({
+    name: 'ready',
+    once: true,
+    run(client) {
+        client.logger.success(\`Successfully logged in as $\{client.user?.tag}\`);
+    }
+});`;
+
+    let eventJsCode = `// filename: events/ready.js
+const { DiscmEvent } = require('discm.js');
+
+module.exports = new DiscmEvent({
+    name: 'ready',
+    once: true,
+    run(client) {
+        client.logger.success(\`Successfully logged in as $\{client.user?.tag}\`);
+    }
+});`;
+</script>
+
+Discm automatically listens to events for you, so you will never have to call <code class="inline">client.on</code> or <code class="inline">client.once</code>.
+
+Let's create an event which listen for the <code class="inline">ready</code> event, which is dispatched by discord when our bot is online, and send a message to the console letting us know the bot is online.
+
+Make a new file in your events directory and name it whatever (recommended to use the name of the event).
+
+<CodeblockTabs identifier="event" names={["typescript","javascript"]}>
+    <CodeblockTabOption identifier="event" name="typescript" language="typescript">
+        {eventTsCode}
+    </CodeblockTabOption>
+    <CodeblockTabOption identifier="event" name="javascript" language="javascript">
+        {eventJsCode}
+    </CodeblockTabOption>
+</CodeblockTabs>
+
+Unlike commands, <code class="inline">name</code> is required.
+
+<code class="inline">once</code> uses <code class="inline">client.once</code> instead of <code class="inline">client.on</code> to listen for the event.
+
+The callback passes in the client as an argument, and then whatever additional arguments the event passes in (e.g. <code class="inline">messageCreate</code> passes in <code class="inline">message</code>).
+
+<SpecialBlockquote>
+    Events <code class="inline">interactionCreate</code> and <code class="inline">messageCreate</code> are listened to be discm for commands, and will run your callback code after the command code.
+</SpecialBlockquote>

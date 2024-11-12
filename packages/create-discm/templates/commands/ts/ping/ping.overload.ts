@@ -5,8 +5,8 @@ export default new DiscmCommand({
 	description: 'Replies with "Pong!"',
 	run({ client, interaction }) {
 		interaction.reply({
-            content:`Pong! Websocket heatbeat: \`${client.ws.ping}ms\``,
-            ephemeral: true
-        });
+			content: `Pong! Websocket heatbeat: \`${client.ws.ping}ms\``,
+			ephemeral: true
+		});
 	}
 });

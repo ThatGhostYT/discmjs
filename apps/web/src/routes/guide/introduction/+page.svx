@@ -1,0 +1,50 @@
+<script lang="ts">
+    import { TextGradient, CodeblockTabs, CodeblockTabOption } from "@discmjs/ui";
+
+    const tsCode = `// filename: index.ts
+import { DiscmClient } from 'discm.js';
+import { TOKEN, PRIVATE_SERVER_ID } from './config.json';
+
+const client = new DiscmClient({
+	intents: ['Guilds', 'GuildMessages', 'MessageContent'],
+	dirs: {
+		commands: \`$\{__dirname}/commands\`,
+		events: \`$\{__dirname}/events\`
+	},
+	global: false,
+	autoGenerateHelpCommand: true
+});
+
+client.login(TOKEN, PRIVATE_SERVER_ID);`;
+
+const jsCode = `// filename: index.js
+const { DiscmClient } = require('discm.js');
+const { TOKEN, PRIVATE_SERVER_ID } = require('./config.json');
+
+const client = new DiscmClient({
+	intents: ['Guilds', 'GuildMessages', 'MessageContent'],
+	dirs: {
+		commands: \`$\{__dirname}/commands\`,
+		events: \`$\{__dirname}/events\`
+	},
+	global: false,
+	autoGenerateHelpCommand: true
+});
+
+client.login(TOKEN, PRIVATE_SERVER_ID);`;
+</script>
+
+A powerful framework built on top of and compatible with <a class="guide-link" href="https://npmjs.com/package/discord.js" target="_blank">discord.js</a>.
+
+## <TextGradient color1="pink" color2="mediumpurple">Features</TextGradient>
+
+- Automatic deployment.
+- Well documented.
+- Well typed.
+- Supports Typescript and Javascript.
+- Extensive library.
+- Informative errors.
+- Developer friendly.
+- Built on top of and compatible with <a class="guide-link" href="https://npmjs.com/package/discord.js" target="_blank">discord.js</a>.
+- <a class="guide-link" href="https://npmjs.com/package/create-discm" target="_blank">CLI to get started</a>.
+- Configurable.

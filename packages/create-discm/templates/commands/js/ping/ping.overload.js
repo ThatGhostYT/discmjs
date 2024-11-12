@@ -5,8 +5,8 @@ module.exports = new DiscmCommand({
 	description: 'Replies with "Pong!"',
 	run({ client, interaction }) {
 		interaction.reply({
-            content: `Pong! Websocket heartbeat: \`${client.ws.ping}ms\``,
-            ephemeral: true
-        });
+			content: `Pong! Websocket heartbeat: \`${client.ws.ping}ms\``,
+			ephemeral: true
+		});
 	}
 });

@@ -1,0 +1,149 @@
+<script lang="ts">
+    import { TextGradient, CodeblockTabs, CodeblockTabOption, SpecialBlockquote } from "@discmjs/ui";
+
+    const commandTsCode = `// filename: commands/ping.ts
+import { DiscmCommand } from "discm.js";
+
+export default new DiscmCommand({
+    ...
+});
+`;
+
+    const commandJsCode = `// filename: commands/ping.js
+const { DiscmCommand } = require("discm.js");
+
+module.exports = new DiscmCommand({
+    ...
+});
+`;
+
+    const eventTsCode = `// filename: events/ready.ts
+import { DiscmEvent } from "discm.js";
+
+export default new DiscmEvent({
+    name: "ready",
+    ...
+});
+`;
+
+    const eventJsCode = `// filename: events/ready.js
+const { DiscmEvent } = require("discm.js");
+
+module.exports = new DiscmEvent({
+    name: "ready",
+    ...
+});
+`;
+
+    const clientTsCode = `// filename: index.ts
+import { DiscmClient } from 'discm.js';
+
+const client = new DiscmClient({
+    // From Discord.JS \`ClientOptions\`
+    intents: ['Guilds'],
+
+    // From discm.js \`AdditionalClientOptions\`
+    dirs: {
+        commands: \`$\{__dirname}/commands\`,
+        events: \`$\{__dirname}/events\`
+    }
+});`;
+
+    const clientJsCode = `// filename: index.js
+const { DiscmClient } = require('discm.js'_;
+
+const client = new DiscmClient({
+    // From Discord.JS \`ClientOptions\`
+    intents: ['Guilds'],
+
+    // From discm.js \`AdditionalClientOptions\`
+    dirs: {
+        commands: \`$\{__dirname}/commands\`,
+        events: \`$\{__dirname}/events\`
+    }
+});`;
+</script>
+
+To use the discm handler, make two directories, one for commands and one for events.
+
+<SpecialBlockquote>
+    We recommend using the names <code class="inline">commands</code> and <code class="inline">events</code>, however you can use whatever names you want.
+</SpecialBlockquote>
+
+<CodeblockTabs identifier="filesystem" names={["typescript","javascript"]} disableCopy>
+    <CodeblockTabOption identifier="filesystem" name="typescript" language="filesystem">
+📦your-ts-project
+┣ 📂commands
+┃ ┗ 📜ping.ts
+┣ 📂events
+┃ ┗ 📜ready.ts
+┣ ...
+    </CodeblockTabOption>
+    <CodeblockTabOption identifier="filesystem" name="javascript" language="filesystem">
+📦your-js-project
+┣ 📂commands
+┃ ┗ 📜ping.js
+┣ 📂events
+┃ ┗ 📜ready.js
+┣ ...
+    </CodeblockTabOption>
+</CodeblockTabs>
+
+## <TextGradient color1="pink" color2="mediumpurple">Commands</TextGradient>
+
+Each file in the commands directory represents a command.
+
+Discm will use the file name for the command name.
+
+Each file should export an instance of the <code class="inline">DiscmCommand</code> class.
+
+<CodeblockTabs identifier="commands" names={["typescript","javascript"]} disableCopy>
+    <CodeblockTabOption identifier="commands" name="typescript" language="typescript">
+        {commandTsCode}
+    </CodeblockTabOption>
+    <CodeblockTabOption identifier="commands" name="javascript" language="javascript">
+        {commandJsCode}
+    </CodeblockTabOption>
+</CodeblockTabs>
+
+The following properties **must** be defined:
+
+- <code class="inline">type</code>: whether this is a slash or text command.
+- <code class="inline">description</code>: the description of this command.
+- <code class="inline">run</code>: the callback for this command.
+
+The rest of the properties are optional.
+
+## <TextGradient color1="pink" color2="mediumpurple">Events</TextGradient>
+
+Similarly, each file in the events folder represents an event.
+
+However, discm does not use the file name to determine the event, instead a <code class="inline">name</code> property has to be passed.
+
+Each file should export an instance of the <code class="inline">DiscmEvent</code> class.
+
+<CodeblockTabs identifier="events" names={["typescript","javascript"]} disableCopy>
+    <CodeblockTabOption identifier="events" name="typescript" language="typescript">
+        {eventTsCode}
+    </CodeblockTabOption>
+    <CodeblockTabOption identifier="events" name="javascript" language="javascript">
+        {eventJsCode}
+    </CodeblockTabOption>
+</CodeblockTabs>
+
+## <TextGradient color1="pink" color2="mediumpurple">Linking to the Client</TextGradient>
+
+The <code class="inline">DiscmClient</code> class extends <a href="https://discord.js.org/docs/packages/discord.js/14.16.3/Client:Class" class="guide-link" target="_blank">discord.js's <code class="inline">Client</code> class</a>.
+
+Discord.js's <a href="https://discord.js.org/docs/packages/discord.js/14.16.3/ClientOptions:Interface" class="guidelink" target="_blank"><code class="inline">ClientOptions</code></a> is still required, but you can also supply discm's <code class="inline">AdditionalClientOptions</code>.
+
+The <code class="inline">dirs</code> property is required, and its properties <code class="inline">commands</code> and <code class="inline">events</code> are also required, this is how you like your directories to your client.
+
+<CodeblockTabs identifier="client" names={["typescript","javascript"]}>
+    <CodeblockTabOption identifier="client" name="typescript" language="typescript">
+        {clientTsCode}
+    </CodeblockTabOption>
+    <CodeblockTabOption identifier="client" name="javascript" language="javascript">
+        {clientJsCode}
+    </CodeblockTabOption>
+</CodeblockTabs>

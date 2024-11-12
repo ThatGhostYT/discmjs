@@ -1,0 +1,107 @@
+<script lang="ts">
+    import { TextGradient, SpecialBlockquote, Codeblock, CodeblockTabs, CodeblockTabOption } from "@discmjs/ui";
+
+    const indexTsCode = `// filename: index.ts
+import { DiscmClient } from 'discm.js';
+import { TOKEN, PRIVATE_SERVER_ID } from './config.json';
+
+const client = new DiscmClient({
+	intents: ['Guilds', 'GuildMessages', 'MessageContent'],
+	dirs: {
+		commands: \`$\{__dirname}/commands\`,
+		events: \`$\{__dirname}/events\`
+	},
+	global: false,
+	autoGenerateHelpCommand: true
+});
+
+client.login(TOKEN, PRIVATE_SERVER_ID);`;
+
+const indexJsCode = `// filename: index.js
+const { DiscmClient } = require('discm.js');
+const { TOKEN, PRIVATE_SERVER_ID } = require('./config.json');
+
+const client = new DiscmClient({
+	intents: ['Guilds', 'GuildMessages', 'MessageContent'],
+	dirs: {
+		commands: \`$\{__dirname}/commands\`,
+		events: \`$\{__dirname}/events\`
+	},
+	global: false,
+	autoGenerateHelpCommand: true
+});
+
+client.login(TOKEN, PRIVATE_SERVER_ID);`;
+</script>
+
+There are 2 ways to install discm:
+- Use the cli.
+- Install and setup manually.
+
+## <TextGradient color1="pink" color2="mediumpurple">Using the Cli</TextGradient>
+
+Run the following command to use the cli.
+
+<Codeblock language="shell">
+    npx create-discm@latest
+</Codeblock>
+
+It will prompt a series of questions.
+
+<SpecialBlockquote type="tip">
+    If you want to skip the questions and use the default settings use the <code class="inline">-y</code> flag.
+    
+    <Codeblock language="shell">
+        npx create-discm@latest -y
+    </Codeblock>
+
+    However, this will automatically use javascript to initialize the project.
+</SpecialBlockquote>
+
+The prompts help determine how you want your project to be scaffolded.
+
+Once it has scaffolded the project for you, you can start coding right away!
+
+<SpecialBlockquote type="warning">
+    The cli is still a work in progress, and some features may not work as intended.
+</SpecialBlockquote>
+
+## <TextGradient color1="pink" color2="mediumpurple">Installing Manually</TextGradient>
+
+Run one of the following commands to install discm.js. Each command is package manager specific.
+
+<CodeblockTabs identifier="install" names={["npm","pnpm","yarn","bun"]}>
+    <CodeblockTabOption identifier="install" name="npm" language="shell">
+        npm i discm.js
+    </CodeblockTabOption>
+    <CodeblockTabOption identifier="install" name="pnpm" language="shell">
+        pnpm i discm.js
+    </CodeblockTabOption>
+    <CodeblockTabOption identifier="install" name="yarn" language="shell">
+        yarn add discm.js
+    </CodeblockTabOption>
+    <CodeblockTabOption identifier="install" name="bun" language="shell">
+        bun add discm.js
+    </CodeblockTabOption>
+</CodeblockTabs>
+
+### <TextGradient color1="pink" color2="mediumpurple">Create Index File</TextGradient>
+
+In the root of your project, make a <code class="inline">index.ts</code> or <code class="inline">index.js</code> file.
+
+This file should be listed as <code class="inline">main</code> in your package.json (if your using typescript it should be listed as <code class="inline">dist/index.js</code>), but it never hurts to double check.
+
+Copy the following code and put it in your index file:
+
+<SpecialBlockquote>
+    The second parameter in <code class="inline">client.login</code> is not required if <code class="inline">client.global</code> is set to true.
+</SpecialBlockquote>
+
+<CodeblockTabs identifier="index" names={["typescript","javascript"]}>
+    <CodeblockTabOption identifier="index" name="typescript" language="typescript">
+        {indexTsCode}
+    </CodeblockTabOption>
+    <CodeblockTabOption identifier="index" name="javascript" language="javascript">
+        {indexJsCode}
+    </CodeblockTabOption>
+</CodeblockTabs>

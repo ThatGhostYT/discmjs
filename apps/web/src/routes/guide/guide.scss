@@ -1,0 +1,75 @@
+@for $i from 1 through 3 {
+	h#{$i} {
+		text-align: center;
+		text-decoration: none;
+	}
+}
+
+code.inline {
+	background-color: #333;
+	color: mediumpurple;
+	padding: 5px;
+	border-radius: 5px;
+}
+
+a.guide-link {
+	color: mediumpurple;
+	text-decoration: underline;
+}
+
+a.button-link {
+	padding: 15px;
+	background: #555;
+	border-radius: 5px;
+
+	&:hover {
+		background: #333;
+	}
+}
+
+nav.guide-nav {
+	width: 15vmax;
+	height: 100%;
+	position: fixed;
+	left: 0;
+	top: 6vmax;
+	border-right: 1px solid #555;
+	background: #000;
+
+	ul {
+		list-style-type: none;
+		padding: 15px;
+
+		li {
+			text-align: left;
+
+			&:not(:last-child) {
+				margin-bottom: 15px;
+			}
+		}
+	}
+}
+
+footer {
+	display: flex;
+	margin-top: 30px;
+	justify-content: space-between;
+	align-items: center;
+
+	a {
+		text-align: left;
+
+		span {
+			font-weight: bold;
+		}
+
+		p {
+			font-size: 0.8em;
+			color: #b3b1b1;
+		}
+
+		&:hover > p {
+			text-decoration: underline;
+		}
+	}
+}

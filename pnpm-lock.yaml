@@ -117,7 +117,11 @@ importers:
         specifier: ^14.11.0
         version: 14.11.0
 
-  packages/ui: {}
+  packages/ui:
+    devDependencies:
+      svelte:
+        specifier: ^3.54.0
+        version: 3.57.0
 
 packages:
 

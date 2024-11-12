@@ -1,0 +1,490 @@
+<script lang="ts">
+    import { TextGradient, SpecialBlockquote, CodeblockTabs, CodeblockTabOption, Codeblock } from "@discmjs/ui";
+
+    const textTsCode = `// filename: commands/ping.ts
+import { DiscmCommand } from 'discm.js';
+
+export default new DiscmCommand({
+    type: 'text',
+    description: 'Replies with "Pong!"',
+    run({ client, message }) {
+        message.reply(\`Pong! Websocket heatbeat: \\\`$\{client.ws.ping}ms\\\`\`);
+    }
+});
+`;
+
+    const textJsCode = `// filename: commands/ping.js
+const { DiscmCommand } = require('discm.js');
+
+module.exports = new DiscmCommand({
+    type: 'text',
+    description: 'Replies with "Pong!"',
+    run({ client, message }) {
+        message.reply(\`Pong! Websocket heatbeat: \\\`$\{client.ws.ping}ms\\\`\`);
+    }
+});
+`;
+
+    const textOptionsTsCode = `// filename: commands/math.ts
+import { DiscmCommand } from 'discm.js';
+
+export default new DiscmCommand({
+    type: 'text',
+    description: 'Does math.',
+    options: [
+        {
+            name: 'process',
+            description: 'The process to use.',
+            type: 'string',
+            choices: [
+                {
+                    name: 'add',
+                    value: '+'
+                },
+                {
+                    name: 'subtract',
+                    value: '-'
+                },
+                {
+                    name: 'multiply',
+                    value: '*'
+                },
+                {
+                    name: 'divide',
+                    value: '/'
+                }
+            ]
+        },
+        {
+            name: 'number1',
+            description: 'The first number to use in the operation.',
+            type: 'number'
+        },
+        {
+            name: 'number2',
+            description: 'The second number to use in the operation',
+            type: 'number'
+        }
+    ],
+    run({ message, options }) {
+        const process = options.getString('process');
+        const number1 = options.getNumber('number1');
+        const number2 = options.getNumber('number2');
+
+        const equation = \`$\{number1}$\{process}$\{number2}\`;
+
+        message.reply(
+            \`The result of your equation (\\\`$\{equation}\\\`) is \\\`$\{eval(
+                equation
+            )}\\\`.\`
+        );
+    }
+});`;
+
+    const textOptionsJsCode = `// filename: commands/math.js
+const { DiscmCommand } = require('discm.js');
+
+module.exports = new DiscmCommand({
+    type: 'text',
+    description: 'Does math.',
+    options: [
+        {
+            name: 'process',
+            description: 'The process to use.',
+            type: 'string',
+            choices: [
+                {
+                    name: 'add',
+                    value: '+'
+                },
+                {
+                    name: 'subtract',
+                    value: '-'
+                },
+                {
+                    name: 'multiply',
+                    value: '*'
+                },
+                {
+                    name: 'divide',
+                    value: '/'
+                }
+            ]
+        },
+        {
+            name: 'number1',
+            description: 'The first number to use in the operation.',
+            type: 'number'
+        },
+        {
+            name: 'number2',
+            description: 'The second number to use in the operation',
+            type: 'number'
+        }
+    ],
+    run({ message, options }) {
+        const process = options.getString('process');
+        const number1 = options.getNumber('number1');
+        const number2 = options.getNumber('number2');
+
+        const equation = \`$\{number1}$\{process}$\{number2}\`;
+
+        message.reply(
+            \`The result of your equation (\\\`$\{equation}\\\`) is \\\`$\{eval(
+                equation
+            )}\\\`.\`
+        );
+    }
+});`;
+
+    const slashTsCode = `// filename: commands/ping.ts
+import { DiscmCommand } from 'discm.js';
+
+export default new DiscmCommand({
+    type: 'slash',
+    description: 'Replies with "Pong!"',
+    run({ client, interaction }) {
+        interaction.reply({
+            content: \`Pong! Websocket heatbeat: \\\`$\{client.ws.ping}ms\\\`\`,
+            ephemeral: true
+        });
+    }
+});
+`;
+
+    const slashJsCode = `// filename: commands/ping.js
+const { DiscmCommand } = require('discm.js');
+
+module.exports = new DiscmCommand({
+    type: 'slash',
+    description: 'Replies with "Pong!"',
+    run({ client, interaction }) {
+        interaction.reply({
+            content: \`Pong! Websocket heatbeat: \\\`$\{client.ws.ping}ms\\\`\`,
+            ephemeral: true
+        });
+    }
+});
+`;
+
+    const slashOptionsTsCode = `// filename: commands/math.ts
+import { CommandOptionType, DiscmCommand } from 'discm.js';
+
+export default new DiscmCommand({
+    type: 'slash',
+    description: 'Does math.',
+    options: [
+        {
+            name: 'process',
+            description: 'The process to use.',
+            type: CommandOptionType.String,
+            choices: [
+                {
+                    name: 'add',
+                    value: '+'
+                },
+                {
+                    name: 'subtract',
+                    value: '-'
+                },
+                {
+                    name: 'multiply',
+                    value: '*'
+                },
+                {
+                    name: 'divide',
+                    value: '/'
+                }
+            ],
+            required: true
+        },
+        {
+            name: 'number1',
+            description: 'The first number to use in the operation.',
+            type: CommandOptionType.Integer
+        },
+        {
+            name: 'number2',
+            description: 'The second number to use in the operation',
+            type: CommandOptionType.Integer
+        }
+    ],
+    run({ interaction }) {
+        const process = interaction.options.getString('process');
+        const number1 = interaction.options.getInteger('number1');
+        const number2 = interaction.options.getInteger('number2');
+
+        const equation = \`$\{number1}$\{process}$\{number2}\`;
+
+        interaction.reply({
+            content: \`The result of your equation (\\\`$\{equation}\\\`) is \\\`$\{eval(
+                equation
+            )}\\\`.\`,
+            ephemeral: true
+        });
+    }
+});`;
+
+    const slashOptionsJsCode = `// filename: commands/math.js
+const { CommandOptionType, DiscmCommand } = require('discm.js');
+
+module.exports = new DiscmCommand({
+    type: 'slash',
+    description: 'Does math.',
+    options: [
+        {
+            name: 'process',
+            description: 'The process to use.',
+            type: CommandOptionType.String,
+            choices: [
+                {
+                    name: 'add',
+                    value: '+'
+                },
+                {
+                    name: 'subtract',
+                    value: '-'
+                },
+                {
+                    name: 'multiply',
+                    value: '*'
+                },
+                {
+                    name: 'divide',
+                    value: '/'
+                }
+            ],
+            required: true
+        },
+        {
+            name: 'number1',
+            description: 'The first number to use in the operation.',
+            type: CommandOptionType.Integer
+        },
+        {
+            name: 'number2',
+            description: 'The second number to use in the operation',
+            type: CommandOptionType.Integer
+        }
+    ],
+    run({ interaction }) {
+        const process = interaction.options.getString('process');
+        const number1 = interaction.options.getInteger('number1');
+        const number2 = interaction.options.getInteger('number2');
+
+        const equation = \`$\{number1}$\{process}$\{number2}\`;
+
+        interaction.reply({
+            content: \`The result of your equation (\\\`$\{equation}\\\`) is \\\`$\{eval(
+                equation
+            )}\\\`.\`,
+            ephemeral: true
+        });
+    }
+});`;
+
+    const parse = `/**
+* A parsed overload command (slash and text).
+*/
+export interface ParsedOverloadCommand {
+    /**
+     * Specifies that this command has data for both a slash and text command.
+     */
+    type: 'overload';
+
+    /**
+     * The name of the command.
+     */
+    name: string;
+
+    /**
+     * The description of the command.
+     */
+    description: string;
+
+    /**
+     * The options the text command uses. Slash command options are only in data.
+     */
+    options: AnyCommandTextOption[];
+
+    /**
+     * Overload commands do not permit plugins yet.
+     */
+    plugins: [];
+
+    /**
+     * The data of the command deployed to discord.
+     */
+    data: RESTPostAPIApplicationCommandsJSONBody;
+
+    /**
+     * Whether to delay the deployment of this command.
+     */
+    delayedDeploy: boolean;
+
+    /**
+     * The callback for the slash version of this command.
+     * @param client The client of this command.
+     * @param interaction The interaction that called this command.
+     */
+    slashRun: (
+        client: DiscmClient,
+        interaction: ChatInputCommandInteraction
+    ) => Awaitable<void>;
+
+    /**
+     * The callback for the text version of command.
+     * @param client The client of this command.
+     * @param message The message that called the command.
+     * @param options The options the command uses.
+     */
+    textRun: (
+        client: DiscmClient,
+        message: Message,
+        options: CommandTextOptionResults
+    ) => Awaitable<void>;
+}`;
+</script>
+
+Discm has 2 base types of commands:
+- text
+- slash
+
+## <TextGradient color1="pink" color2="mediumpurple">Text Commands</TextGradient>
+
+Text commands read messages and determine if that is a valid command for your bot.
+
+<SpecialBlockquote type="warning">
+    Text commands are not recommended because it can make your bot slow and they are not developer or user friendly.
+</SpecialBlockquote>
+
+Lets make a basic <code class="inline">ping</code> text command, which responds with "Pong!" and the websocket heartbeat.
+
+Make a file called <code class="inline">ping.js</code> or <code class="inline">ping.ts</code> (depending on what language your using) in your commands directory.
+
+<CodeblockTabs identifier="text" names={["typescript","javascript"]}>
+    <CodeblockTabOption identifier="text" name="typescript" language="typescript">
+        {textTsCode}
+    </CodeblockTabOption>
+    <CodeblockTabOption identifier="text" name="javascript" language="javascript">
+        {textJsCode}
+    </CodeblockTabOption>
+</CodeblockTabs>
+
+The callback passes in one argument, which is an object.
+
+This allows you to destruct the object to get the arguments you need, in no particular order.
+
+The object includes the <code class="inline">client</code>, <code class="inline">message</code>, and a set of parsed <code class="inline">options</code>.
+
+The <code class="inline">options</code> object is made to mimic <a href="https://discord.js.org/docs/packages/discord.js/14.16.3/ChatInputCommandInteraction:Class#options" class="guide-link" target="_blank"><code class="inline">interaction.options</code></a>.
+
+Text command options are automatically parsed for you.
+
+Options can be 1 of 3 types:
+- <code class="inline">string</code>: A one word option. Supports choices.
+- <code class="inline">number</code>: Any numeric number. Does not support choices.
+- <code class="inline">boolean</code>: Either <code class="inline">true</code> or <code class="inline">false</code>. Does not support choices.
+
+Choices are a set list of acceptable values. Each choice should be defined with a <code class="inline">name</code> property and a <code class="inline">value</code> property.
+
+The <code class="inline">name</code> property is the acceptable value.
+
+The <code class="inline">value</code> property is what is returned when that option is retrieved.
+
+If the value is not a valid choice, the entire argument is determined invalid.
+
+Let's make a <code class="inline">math</code> command which performs simple arithmatic (addition, subtraction, multiplication, division) between 2 numbers.
+
+The <code class="inline">process</code> will be a <code class="inline">string</code> option and will determine which operation to use.
+
+Then the following arguments <code class="inline">number1</code> and <code class="inline">number2</code> will be <code class="inline">number</code> options and determine which numbers to use for the arithmatic.
+
+<CodeblockTabs identifier="text-options" names={["typescript","javascript"]}>
+    <CodeblockTabOption identifier="text-options" name="typescript" language="typescript">
+        {textOptionsTsCode}
+    </CodeblockTabOption>
+    <CodeblockTabOption identifier="text-options" name="javascript" language="javascript">
+        {textOptionsJsCode}
+    </CodeblockTabOption>
+</CodeblockTabs>
+
+## <TextGradient color1="pink" color2="mediumpurple">Slash Commands</TextGradient>
+
+Slash commands are the new era of discord commands.
+
+They improve speed, are more developer friendly, and more user friendly.
+
+<a href="https://discord.com/blog/welcome-to-the-new-era-of-discord-apps" class="button-link" target="_blank">Learn more <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+
+Lets make a basic <code class="inline">ping</code> slash command, which responds with "Pong!" and the websocket heartbeat.
+
+Make a file called <code class="inline">ping.js</code> or <code class="inline">ping.ts</code> (depending on what language your using) in your commands directory.
+
+<CodeblockTabs identifier="slash" names={["typescript","javascript"]}>
+    <CodeblockTabOption identifier="slash" name="typescript" language="typescript">
+        {slashTsCode}
+    </CodeblockTabOption>
+    <CodeblockTabOption identifier="slash" name="javascript" language="javascript">
+        {slashJsCode}
+    </CodeblockTabOption>
+</CodeblockTabs>
+
+Like text commands, the callback passes in one argument, which is an object.
+
+This allows you to destruct the object to get the arguments you need, in no particular order.
+
+The object includes the <code class="inline">client</code> and the <code class="inline">interaction</code> that invoked the command.
+
+The <code class="inline">options</code> property is uploaded directly to discord.
+
+To set an option type, discm exports <code class="inline">CommandOptionType</code> enum, which is a copy of <a href="https://discord-api-types.dev/api/discord-api-types-v10/enum/ApplicationCommandOptionType" class="guide-link" target="_blank"><code class="inline">ApplicationCommandOptionType</code></a> from discord.js (defined in <a href="https://discord-api-types.dev" class="guide-link" target="_blank">discord-api-types</a>)
+
+Let's make a <code class="inline">math</code> command which performs simple arithmatic (addition, subtraction, multiplication, division) between 2 numbers.
+
+<CodeblockTabs identifier="slash-options" names={["typescript","javascript"]}>
+    <CodeblockTabOption identifier="slash-options" name="typescript" language="typescript">
+        {slashOptionsTsCode}
+    </CodeblockTabOption>
+    <CodeblockTabOption identifier="slash-options" name="javascript" language="javascript">
+        {slashOptionsJsCode}
+    </CodeblockTabOption>
+</CodeblockTabs>
+
+## <TextGradient color1="pink" color2="mediumpurple">Subcommands</TextGradient>
+
+To make a subcommand, make a directory inside the commands directory, name it what you want the command to be named.
+
+Then, make a file, name it what you want the subcommand to be named.
+
+All subcommands must be a <code class="inline">slash</code> command, or else discm will throw a <code class="inline">CommandError</code>.
+
+## <TextGradient color1="pink" color2="mediumpurple">Overloading</TextGradient>
+
+Command overloading is a discm feature that allows you to make 2 commands with the same name, one is a <code class="inline">text</code> command and the other is a <code class="inline">slash</code> command.
+
+Ideally, the commands would accomplish the same task, but this is not required.
+
+You cannot overload a subcommand.
+
+To make a command overload, create a file in your commands directory and name it <code class="inline">command-name.overload.ts</code> or <code class="inline">command-name.overload.js</code>, replacing <code class="inline">command-name</code> with the name of the command you wish to overload.
+
+Make sure a file without the <code class="inline">.overload</code> in the name exists or discm will throw an error.
+
+When parsed, discm combines these two commands into one.
+
+<Codeblock language="typescript" disableCopy>
+    {parse}
+</Codeblock>
+
+## <TextGradient color1="pink" color2="mediumpurple">Deployment</TextGradient>
+
+Discm automatically deploys all commands for you when <code class="inline">client.login</code> is called.
+
+You can delay the deployment of all commands by setting <code class="inline">client.delayDeploy</code> to true.
+
+You can also delay the deployment of individual commands by setting <code class="inline">DiscmCommand#delayDeploy</code> to true.
+
+<SpecialBlockquote>
+    These commands will not deploy until manually done so. The deploy function is exposed by <code class="inline">client.deploy</code>, however, its not recommended to use this command unless all commands deployment has been delayed. Use <code class="inline">client.deployCommand</code> for individual commands.
+</SpecialBlockquote>
