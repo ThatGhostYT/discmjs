@@ -54,6 +54,7 @@
         background-color: #111;
         padding: 15px 5px;
         border-radius: 0 5px 5px 0;
+        z-index: -1;
 
         .heading{
             font-weight: bold;
