@@ -111,6 +111,7 @@
         align-items: center;
         justify-content: space-between;
         border-bottom: 1px solid #555;
+        z-index: 1;
 
         @supports (backdrop-filter: none){
             background: transparent;
