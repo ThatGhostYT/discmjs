@@ -136,15 +136,9 @@ importers:
         specifier: ^2.3.15
         version: 2.3.15
     devDependencies:
-      '@types/node':
-        specifier: ^20.14.10
-        version: 20.14.10
       '@types/walk':
         specifier: ^2.3.1
         version: 2.3.1
-      svelte:
-        specifier: ^3.54.0
-        version: 3.57.0
       typescript:
         specifier: ^5.7.2
         version: 5.7.2
