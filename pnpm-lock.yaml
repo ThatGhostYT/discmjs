@@ -126,9 +126,9 @@ importers:
 
   packages/docgen:
     dependencies:
-      '@discmjs/ui':
+      discm.js:
         specifier: workspace:^
-        version: link:../ui
+        version: link:../discmjs
       typedoc:
         specifier: ^0.27.2
         version: 0.27.2(typescript@5.7.2)
@@ -142,9 +142,6 @@ importers:
       '@types/walk':
         specifier: ^2.3.1
         version: 2.3.1
-      discm.js:
-        specifier: workspace:^
-        version: link:../discmjs
       svelte:
         specifier: ^3.54.0
         version: 3.57.0

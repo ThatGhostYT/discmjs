@@ -12,12 +12,11 @@
   "devDependencies": {
     "@types/node": "^20.14.10",
     "@types/walk": "^2.3.1",
-    "discm.js": "workspace:^",
     "svelte": "^3.54.0",
     "typescript": "^5.7.2"
   },
   "dependencies": {
-    "@discmjs/ui": "workspace:^",
+    "discm.js": "workspace:^",
     "typedoc": "^0.27.2",
     "walk": "^2.3.15"
   }
