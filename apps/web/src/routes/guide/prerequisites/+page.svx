@@ -1,0 +1,17 @@
+All of the following are required for discm.js to work:
+- <a href="https://nodejs.org/" class="guide-link" target="_blank">Node JS</a>
+- <a href="discord.js.org" class="guide-link" target="_blanl">discord.js v14</a>
+
+Discm.js works with either typescript or javascript.
+
+You should understand your language of choice.
+
+Resources for javascript:
+- <a href="https://w3schools.com/js/default.asp" class="guide-link" target="_blank">W3Schools</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting" class="guide-link" target="_blank">Mozilla Web Docs</a>
+- <a href="https://www.youtube.com/watch?v=DHjqpvDnNGE" class="guide-link" target="_blank">Fireship Javascript in 100 seconds</a>
+
+Resources for typescript:
+- <a href="https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html" class="guide-link" target="_blank">Typescript for Javascript Programmers</a>
+- <a href="https://www.youtube.com/watch?v=zQnBQ4tB3ZA" class="guide-link" target="_blank">Fireship Typescript in 100 seconds</a>
+- <a href="https://www.youtube.com/watch?v=ahCwqrYpIuM" class="guide-link" target="_blank">Fireship Typescript Tutorial</a>

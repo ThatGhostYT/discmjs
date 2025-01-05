@@ -41,23 +41,21 @@
             class:slideIn={mobileWidgetExpanded}
             class:slideOut={!mobileWidgetExpanded}
         >
-            {#each ["about","why","benefits"] as id (id)}
-                <li>
-                    <a href="/#{id}" on:click={hamburgerMenu}>
-                        {#if $page.url.href.split("/").includes(`#${id}`)}
-                            <TextGradient color1="pink" color2="mediumpurple">{id.charAt(0).toUpperCase() + id.slice(1).toLowerCase()}</TextGradient>
-                        {:else}
-                            <HoverTextGradient color1="pink" color2="mediumpurple">{id.charAt(0).toUpperCase() + id.slice(1).toLowerCase()}</HoverTextGradient>
-                        {/if}
-                    </a>
-                </li>
-            {/each}
             <li>
                 <a href="/guide" on:click={hamburgerMenu}>
                     {#if $page.url.href.split("/").includes("guide")}
                         <TextGradient color1="pink" color2="mediumpurple">Guide</TextGradient>
                     {:else}
                         <HoverTextGradient color1="pink" color2="mediumpurple">Guide</HoverTextGradient>
+                    {/if}
+                </a>
+            </li>
+            <li>
+                <a href="/docs" on:click={hamburgerMenu}>
+                    {#if $page.url.href.split("/").includes("docs")}
+                        <TextGradient color1="pink" color2="mediumpurple">Docs</TextGradient>
+                    {:else}
+                        <HoverTextGradient color1="pink" color2="mediumpurple">Docs</HoverTextGradient>
                     {/if}
                 </a>
             </li>

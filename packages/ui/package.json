@@ -11,5 +11,8 @@
 	"license": "ISC",
 	"devDependencies": {
 		"svelte": "^3.54.0"
+	},
+	"dependencies": {
+		"@discmjs/docgen": "workspace:^"
 	}
 }

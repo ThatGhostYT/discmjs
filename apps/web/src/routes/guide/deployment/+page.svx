@@ -1,0 +1,61 @@
+<script lang="ts">
+    import { TextGradient, SpecialBlockquote, CodeblockTabs, CodeblockTabOption } from "@discmjs/ui";
+
+    const globalCode = `// global by default
+const client = new DiscmClient({
+    intents: ['Guilds'],
+    dirs: {
+        commands: \`\${__dirname}/commands\`,
+        events: \`\${__dirname}/events\`
+    }
+});
+    
+// just like normal client.login
+client.login(TOKEN);`;
+
+    const privateCode = `// explicitly private
+const client = new DiscmClient({
+    intents: ['Guilds'],
+    dirs: {
+        commands: \`\${__dirname}/commands\`,
+        events: \`\${__dirname}/events\`
+    },
+    global: false
+});
+
+// now requires a list of guild ids to deploy to
+client.login(TOKEN, ['guild-id', 'another-guild-id']);`;
+</script>
+
+Discm automatically deploys commands for you when <code class="inline">client.login</code> is called.
+
+## <TextGradient color1="pink" color2="mediumpurple">Delayed Deployment</TextGradient>
+
+You can delay the deployment for every command via <a href="/docs/classes/DiscmClient#delayedDeploy" class="guide-link"><code class="inline">DiscmClient#delayedDeploy</code></a> or for individual commands via <a href="/docs/classes/DiscmCommand#delayedDeploy" class="guide-link"><code class="inline">DiscmCommand#delayedDeploy</code></a>.
+
+<SpecialBlockquote>
+    These commands will not be deployed until <a href="/docs/classes/DiscmClient#deploy" class="guide-link"><code class="inline">client.deploy()</code></a> or <a href="/docs/classes/DiscmClient#deployCommand" class="guide-link"><code class="inline">client.deployCommand()</code></a> is called.
+</SpecialBlockquote>
+
+## <TextGradient color1="pink" color2="mediumpurple">Global Deployment</TextGradient>
+
+When deploying, slash commands can either be deployed to every guild your bot is in, or a set list of guilds.
+
+When slash commands are deployed to every guild the bot is in, it is called *global deployment*.
+
+Discm allows you to configure which guilds your bot deploys too very easily.
+
+Bots are global by default. To make your bot private set the global property on <a href="/docs/types/AdditionalClientOptions" class="guide-link"><code class="inline">AdditionalClientOptions</code></a> to false when initializing the <code class="inline">DiscmClient</code> class.
+
+<SpecialBlockquote>
+    By setting global to false, a second property to <code class="inline">client.login()</code> is required.
+</SpecialBlockquote>
+
+<CodeblockTabs identifier="global" names={["global","private"]}>
+    <CodeblockTabOption identifier="global" name="global" language="javascript">
+        {globalCode}
+    </CodeblockTabOption>
+    <CodeblockTabOption identifier="global" name="private" language="javascript">
+        {privateCode}
+    </CodeblockTabOption>
+</CodeblockTabs>

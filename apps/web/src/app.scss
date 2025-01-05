@@ -35,3 +35,17 @@ a {
 	text-decoration: none;
 	color: #e7e7e7;
 }
+
+::-webkit-scrollbar{
+	width: 8px;
+	height: 8px;
+}
+
+::-webkit-scrollbar-thumb{
+	cursor: pointer;
+	background: mediumpurple;
+}
+
+::-webkit-scrollbar-track{
+	background: #151515;
+}

@@ -1,4 +1,5 @@
 import { SvelteComponentTyped } from 'svelte';
+import type { FetchNodeSuccess } from '@discmjs/docgen';
 
 export class TextGradient extends SvelteComponentTyped<{
 	color1: string;
@@ -29,4 +30,16 @@ export class CodeblockTabOption extends SvelteComponentTyped<{
 	identifier: string;
 	name: string;
 	language: string;
+}> {}
+
+export class Card extends SvelteComponentTyped<{
+	title: string;
+	src?: string;
+	alt?: string;
+}> {}
+
+export class DocItem extends SvelteComponentTyped<{
+	node: FetchNodeSuccess;
+	item: string;
+	type: string;
 }> {}

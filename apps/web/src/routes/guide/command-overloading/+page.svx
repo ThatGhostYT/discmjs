@@ -1,0 +1,81 @@
+<script lang="ts">
+    import { Codeblock } from "@discmjs/ui";
+
+    const parse = `/**
+* A parsed overload command (slash and text).
+*/
+export interface ParsedOverloadCommand {
+    /**
+     * Specifies that this command has data for both a slash and text command.
+     */
+    type: 'overload';
+
+    /**
+     * The name of the command.
+     */
+    name: string;
+
+    /**
+     * The description of the command.
+     */
+    description: string;
+
+    /**
+     * The options the text command uses. Slash command options are only in data.
+     */
+    options: AnyCommandTextOption[];
+
+    /**
+     * Overload commands do not permit plugins yet.
+     */
+    plugins: [];
+
+    /**
+     * The data of the command deployed to discord.
+     */
+    data: RESTPostAPIApplicationCommandsJSONBody;
+
+    /**
+     * Whether to delay the deployment of this command.
+     */
+    delayedDeploy: boolean;
+
+    /**
+     * The callback for the slash version of this command.
+     * @param client The client of this command.
+     * @param interaction The interaction that called this command.
+     */
+    slashRun: (
+        client: DiscmClient,
+        interaction: ChatInputCommandInteraction
+    ) => Awaitable<void>;
+
+    /**
+     * The callback for the text version of command.
+     * @param client The client of this command.
+     * @param message The message that called the command.
+     * @param options The options the command uses.
+     */
+    textRun: (
+        client: DiscmClient,
+        message: Message,
+        options: CommandTextOptionResults
+    ) => Awaitable<void>;
+}`;
+</script>
+
+Command overloading is a discm feature that allows you to make 2 commands with the same name, one is a <code class="inline">text</code> command and the other is a <code class="inline">slash</code> command.
+
+Ideally, the commands would accomplish the same task, but this is not required.
+
+You cannot overload a subcommand.
+
+To make a command overload, create a file in your commands directory and name it <code class="inline">command-name.overload.ts</code> or <code class="inline">command-name.overload.js</code>, replacing <code class="inline">command-name</code> with the name of the command you wish to overload.
+
+Make sure a file without the <code class="inline">.overload</code> in the name exists or discm will throw an error.
+
+When parsed, discm combines these two commands into one.
+
+<Codeblock language="typescript" disableCopy>
+    {parse}
+</Codeblock>

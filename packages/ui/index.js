@@ -4,3 +4,5 @@ export { default as Codeblock } from './components/Codeblock.svelte';
 export { default as CodeblockTabs } from './components/CodeblockTabs.svelte';
 export { default as CodeblockTabOption } from './components/CodeblockTabOption.svelte';
 export { default as SpecialBlockquote } from './components/SpecialBlockquote.svelte';
+export { default as Card } from './components/Card.svelte';
+export { default as DocItem } from './components/DocItem.svelte';
