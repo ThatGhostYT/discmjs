@@ -31,6 +31,7 @@
 		"exactOptionalPropertyTypes": true,
 		"experimentalDecorators": true,
 		"forceConsistentCasingInFileNames": true,
-		"declaration": true
+		"declaration": true,
+		"declarationDir": "./dist/types"
 	}
 }
